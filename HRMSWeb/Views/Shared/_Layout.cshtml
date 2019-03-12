@@ -27,6 +27,10 @@
     <link rel="stylesheet" href="~/Content/global/vendor/slidepanel/slidePanel.css">
     <link rel="stylesheet" href="~/Content/global/vendor/flag-icon-css/flag-icon.css">
     <link rel="stylesheet" href="~/Content/global/vendor/waves/waves.css">
+    <link rel="stylesheet" href="~/Content/global/vendor/chartist/chartist.css">
+    <link rel="stylesheet" href="~/Content/global/vendor/jvectormap/jquery-jvectormap.css">
+    <link rel="stylesheet" href="~/Content/global/vendor/chartist-plugin-tooltip/chartist-plugin-tooltip.css">
+    <link rel="stylesheet" href="~/Content/assets/examples/css/dashboard/v1.css">
     <link rel="stylesheet" href="~/Content/global/vendor/datatables.net-bs4/dataTables.bootstrap4.css">
     <link rel="stylesheet" href="~/Content/global/vendor/datatables.net-fixedheader-bs4/dataTables.fixedheader.bootstrap4.css">
     <link rel="stylesheet" href="~/Content/global/vendor/datatables.net-fixedcolumns-bs4/dataTables.fixedcolumns.bootstrap4.css">
@@ -36,9 +40,6 @@
     <link rel="stylesheet" href="~/Content/global/vendor/datatables.net-responsive-bs4/dataTables.responsive.bootstrap4.css">
     <link rel="stylesheet" href="~/Content/global/vendor/datatables.net-buttons-bs4/dataTables.buttons.bootstrap4.css">
     <link rel="stylesheet" href="~/Content/assets/examples/css/tables/datatable.css">
-    <link href="~/Content/CustomCss.css" rel="stylesheet" />
-    <link rel="stylesheet" href="~/Content/global/vendor/ladda/ladda.css">
-    <link rel="stylesheet" href="~/Content/assets/examples/css/uikit/buttons.css">
 
     <!-- Fonts -->
     <link rel="stylesheet" href="~/Content/global/fonts/font-awesome/font-awesome.css">
@@ -47,17 +48,17 @@
     <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Roboto:300,400,500,300italic'>
 
     <!--[if lt IE 9]>
-    <script src="../../../global/vendor/html5shiv/html5shiv.min.js"></script>
+    <script src="../../global/vendor/html5shiv/html5shiv.min.js"></script>
     <![endif]-->
     <!--[if lt IE 10]>
-    <script src="../../../global/vendor/media-match/media.match.min.js"></script>
-    <script src="../../../global/vendor/respond/respond.min.js"></script>
+    <script src="../../global/vendor/media-match/media.match.min.js"></script>
+    <script src="../../global/vendor/respond/respond.min.js"></script>
     <![endif]-->
     <!-- Scripts -->
     <script src="~/Content/global/vendor/breakpoints/breakpoints.js"></script>
-
-    <script>Breakpoints();</script>
-    <script src="~/Content/global/vendor/jquery/jquery.js"></script>
+    <script>
+      Breakpoints();
+    </script>
 </head>
 <body class="animsition dashboard">
     <!--[if lt IE 8]>
@@ -655,7 +656,7 @@
     </footer>
     <!-- Core  -->
     <script src="~/Content/global/vendor/babel-external-helpers/babel-external-helpers.js"></script>
-  
+    <script src="~/Content/global/vendor/jquery/jquery.js"></script>
     <script src="~/Content/global/vendor/popper-js/umd/popper.min.js"></script>
     <script src="~/Content/global/vendor/bootstrap/bootstrap.js"></script>
     <script src="~/Content/global/vendor/animsition/animsition.js"></script>
@@ -670,6 +671,12 @@
     <script src="~/Content/global/vendor/intro-js/intro.js"></script>
     <script src="~/Content/global/vendor/screenfull/screenfull.js"></script>
     <script src="~/Content/global/vendor/slidepanel/jquery-slidePanel.js"></script>
+    <script src="~/Content/global/vendor/chartist/chartist.min.js"></script>
+    <script src="~/Content/global/vendor/chartist-plugin-tooltip/chartist-plugin-tooltip.js"></script>
+    <script src="~/Content/global/vendor/jvectormap/jquery-jvectormap.min.js"></script>
+    <script src="~/Content/global/vendor/jvectormap/maps/jquery-jvectormap-world-mill-en.js"></script>
+    <script src="~/Content/global/vendor/matchheight/jquery.matchHeight-min.js"></script>
+    <script src="~/Content/global/vendor/peity/jquery.peity.min.js"></script>
     <script src="~/Content/global/vendor/datatables.net/jquery.dataTables.js"></script>
     <script src="~/Content/global/vendor/datatables.net-bs4/dataTables.bootstrap4.js"></script>
     <script src="~/Content/global/vendor/datatables.net-fixedheader/dataTables.fixedHeader.js"></script>
@@ -686,7 +693,6 @@
     <script src="~/Content/global/vendor/datatables.net-buttons-bs4/buttons.bootstrap4.js"></script>
     <script src="~/Content/global/vendor/asrange/jquery-asRange.min.js"></script>
     <script src="~/Content/global/vendor/bootbox/bootbox.js"></script>
-
     <!-- Scripts -->
     <script src="~/Content/global/js/Component.js"></script>
     <script src="~/Content/global/js/Plugin.js"></script>
@@ -698,8 +704,6 @@
     <script src="~/Content/assets/js/Section/Sidebar.js"></script>
     <script src="~/Content/assets/js/Section/PageAside.js"></script>
     <script src="~/Content/assets/js/Plugin/menu.js"></script>
-    <script src="~/Content/global/vendor/ladda/spin.min.js"></script>
-    <script src="~/Content/global/vendor/ladda/ladda.min.js"></script>
 
     <script src="~/Content/global/js/config/colors.js"></script>
     <script src="~/Content/assets/js/config/tour.js"></script>
@@ -710,71 +714,10 @@
     <script src="~/Content/global/js/Plugin/asscrollable.js"></script>
     <script src="~/Content/global/js/Plugin/slidepanel.js"></script>
     <script src="~/Content/global/js/Plugin/switchery.js"></script>
-    <script src="~/Content/global/js/Plugin/datatables.js"></script>
+    <script src="~/Content/global/js/Plugin/matchheight.js"></script>
+    <script src="~/Content/global/js/Plugin/jvectormap.js"></script>
+    <script src="~/Content/global/js/Plugin/peity.js"></script>
 
-    <script src="~/Content/assets/examples/js/tables/datatable.js"></script>
-    <script src="~/Content/assets/examples/js/uikit/icon.js"></script>
-    <script src="~/Content/global/js/Plugin/loading-button.js"></script>
-    <script src="~/Content/global/js/Plugin/more-button.js"></script>
-    <script src="~/Content/global/js/Plugin/ladda.js"></script>
-    <script>
-        jQuery.extend({
-            stringify: function stringify(obj) {
-                if ("JSON" in window) {
-                    return JSON.stringify(obj);
-                }
-
-                var t = typeof (obj);
-                if (t != "object" || obj === null) {
-                    // simple data type
-                    if (t == "string") obj = '"' + obj + '"';
-
-                    return String(obj);
-                } else {
-                    // recurse array or object
-                    var n, v, json = [], arr = (obj && obj.constructor == Array);
-
-                    for (n in obj) {
-                        v = obj[n];
-                        t = typeof (v);
-                        if (obj.hasOwnProperty(n)) {
-                            if (t == "string") {
-                                v = '"' + v + '"';
-                            } else if (t == "object" && v !== null) {
-                                v = jQuery.stringify(v);
-                            }
-
-                            json.push((arr ? "" : '"' + n + '":') + String(v));
-                        }
-                    }
-
-                    return (arr ? "[" : "{") + String(json) + (arr ? "]" : "}");
-                }
-            }
-        });
-        (function ($) {
-            $.onbody = function (eventName, selector, handler) {
-                if (jQuery._data($("body")[0], "events")) {
-
-                    if (jQuery._data($("body")[0], "events")[eventName]) {
-                        var eventHendlerAttach = $.grep(jQuery._data($("body")[0], "events")[eventName], function (e) {
-                            return e.selector == selector;
-                        });
-                        if (eventHendlerAttach.length == 0) {
-                            return $("body").on(eventName, selector, handler);
-                        }
-                        else {
-                            return false;
-                        }
-                    }
-                    else {
-                        return $("body").on(eventName, selector, handler);
-                    }
-                }
-                else
-                    return $("body").on(eventName, selector, handler);
-            };
-        }(jQuery));
-    </script>
+    <script src="~/Content/assets/examples/js/dashboard/v1.js"></script>
 </body>
 </html>
