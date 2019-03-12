@@ -1,0 +1,51 @@
+﻿
+@model IEnumerable<HRMSWeb.Models.ExtraPermissions>
+
+
+@{ HRMSWeb.Models.Session_CRM sess = (HRMSWeb.Models.Session_CRM)HttpContext.Current.Session["Session_CRM"]; }
+
+
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Permissions</h4>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <ul class="permissions_list">
+                        <form id="formextraPerimission">
+                            @{int i = 0;}
+                            @foreach (var item in Model)
+                            {
+
+
+                                <li>
+                                    <div class="checkbox">
+                                        <label>
+
+                                            <input type="checkbox" name="Allow" checked="@item.Allow" /> @item.Name
+                                            <input type="hidden" name="Allow" value="@item.Allow" />
+                                            <input type="hidden" name="PermissionGroupID" value="@item.PermissionGroupID" />
+                                            <input type="hidden" name="UserExtraPermissionjuncID" value="@item.UserExtraPermissionjuncID" />
+                                            <input type="hidden" name="UserID" value="@item.UserID" />
+                                        </label>
+                                    </div>
+                                </li>
+                                i++;
+                            }
+                        </form>
+                    </ul>
+
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+@if (CRM_Common.CheckPermissions(PermissionEnum.ManageUsers, CRM_Common.GetControler(this.ViewContext)))
+        {
+            <button type="button" class="btn btn-raised btn-success btn-sm" id="updateExtraPermission" data-dismiss="modal">Update</button>
+}    
+    </div>
+    </div>
+</div>

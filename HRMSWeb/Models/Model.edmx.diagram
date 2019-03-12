@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="412619283b574639b9502bb2727382e7" Name="Diagram1">
+        <EntityTypeShape EntityType="HRMSModel.AT_Client" Width="1.5" PointX="0.75" PointY="7.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRMSModel.AT_Modules" Width="1.5" PointX="0.75" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRMSModel.AT_Pages" Width="1.5" PointX="3" PointY="3.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRMSModel.AT_Permission" Width="1.5" PointX="5.25" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRMSModel.AT_PermissionActionJunc" Width="1.5" PointX="7.5" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRMSModel.AT_PermissionGroup" Width="1.5" PointX="5.25" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRMSModel.AT_PermissionGroupJunc" Width="1.5" PointX="7.5" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRMSModel.AT_Role" Width="1.5" PointX="7.75" PointY="9.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRMSModel.AT_RolePermissionJunc" Width="1.5" PointX="10" PointY="7.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRMSModel.AT_UserExtraPermissionjunc" Width="1.5" PointX="12.25" PointY="10.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRMSModel.AT_Users" Width="1.5" PointX="10" PointY="10.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRMSModel.Benefit" Width="1.5" PointX="0.75" PointY="10.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRMSModel.Branch" Width="1.5" PointX="9.75" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRMSModel.Department" Width="1.5" PointX="2.75" PointY="12.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRMSModel.Designation" Width="1.5" PointX="9.75" PointY="2.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRMSModel.LeaveType" Width="1.5" PointX="4.75" PointY="12.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRMSModel.Promotion" Width="1.5" PointX="12" PointY="2.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRMSModel.Resign" Width="1.5" PointX="12.75" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRMSModel.Shift" Width="1.5" PointX="6.75" PointY="14.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRMSModel.sysdiagram" Width="1.5" PointX="12.75" PointY="14.125" IsExpanded="true" />
+        <AssociationConnector Association="HRMSModel.FK_vt_Pages_vt_Modules" ManuallyRouted="false" />
+        <AssociationConnector Association="HRMSModel.FK_vt_Permission_vt_Pages" ManuallyRouted="false" />
+        <AssociationConnector Association="HRMSModel.FK_vt_PermissionActionJunc_vt_Permission" ManuallyRouted="false" />
+        <AssociationConnector Association="HRMSModel.FK_vt_PermissionGroupJunc_vt_Permission" ManuallyRouted="false" />
+        <AssociationConnector Association="HRMSModel.FK_vt_PermissionGroupJunc_vt_PermissionGroup" ManuallyRouted="false" />
+        <AssociationConnector Association="HRMSModel.FK_vt_UserExtraPermissionjunc_vt_PermissionGroup" ManuallyRouted="false" />
+        <AssociationConnector Association="HRMSModel.FK_AT_Users_AT_Role" ManuallyRouted="false" />
+        <AssociationConnector Association="HRMSModel.FK_vt_RolePermissionJunc_vt_Role" ManuallyRouted="false" />
+        <AssociationConnector Association="HRMSModel.FK_vt_UserExtraPermissionjunc_vt_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="HRMSModel.FK_Promotion_Designation" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

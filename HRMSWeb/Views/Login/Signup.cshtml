@@ -1,0 +1,211 @@
+﻿@model JaredCRM.Models.vt_CRM_Clients
+@{
+    Layout = null;
+}
+
+<!doctype html>
+<html class="no-js" lang="">
+
+<head>
+    <meta charset="utf-8" />
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <title>JARJA MEDIA - Sign up  </title>
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+
+    <!--  Fonts and icons -->
+    <!-- CSS Files -->
+    @*<link href="~/Content/assets/css/main.css" rel="stylesheet">*@
+    @Styles.Render("~/Content/LoginCSS")
+    @Scripts.Render("~/Content/LoginJS")
+</head>
+
+<body id="oakleaf" class="signup-page appWrapper">
+    <!-- Application Content -->
+    <div class="wrapper">
+        <div class="header header-filter" style="background-image: url('/Content/assets/images/login-bg.jpg'); background-size: cover; background-position: top center;">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 text-center">
+                        <div class="card card-signup">
+                           <form id="frmSignup">
+                                <div class="header header-primary text-center">
+                                    <h4>Sign Up</h4>
+                                </div>
+                                <h3 class="mt-0">Jarja Media</h3>
+                                <p class="help-block">Marketing At The Speed Of Today</p>
+
+                                <div class="content">
+                                    <div class="form-group">
+
+                                        @Html.TextBoxFor(model => model.FirstName, new { @class = "form-control", placeholder="First name" })
+                                        @Html.ValidationMessageFor(model => model.FirstName)
+                                    </div>
+                                    <div class="form-group">
+
+                                        @Html.TextBoxFor(model => model.LastName, new { @class = "form-control", placeholder = "Last name" })
+                                        @Html.ValidationMessageFor(model => model.LastName)
+                                    </div>
+                                    <div class="form-group">
+
+                                        @Html.TextBoxFor(model => model.Phone, new { @class = "form-control", placeholder = "Phone" })
+                                        @Html.ValidationMessageFor(model => model.Phone)
+                                    </div>
+
+                                    <div class="form-group">
+                                        @Html.TextBoxFor(model => model.Email, new { @class = "form-control", placeholder = "Email" })
+                                        @Html.ValidationMessageFor(model => model.Email)
+                                    </div>
+                                   
+                                    <div class="form-group">
+                                        @Html.PasswordFor(model => model.Password, new { @class = "form-control", placeholder = "Password" })
+                                        @Html.ValidationMessageFor(model => model.Password)
+                                    </div>
+
+                                    <div class="checkbox">
+                                        <label>
+                                           
+                                           @Html.CheckBoxFor(model => model.IsCheckBox, new { @checked = "checked" })
+                                            @Html.ValidationMessageFor(model => model.IsCheckBox)
+                                          
+                                           
+                                            I agree to the <a href="javascript:;">Terms of Service</a> &amp; <a href="javascript:;">Privacy Policy</a>
+                                          
+
+                                           
+                                        </label>
+
+                                    </div>
+                                   
+                                   
+                                </div>
+                               </form>
+                            <div>
+                                
+                            </div>
+                            <div class="footer text-center mb-20">
+                                <button class="btn btn-primary btn-raised btnsave">
+                                    Submit
+                                    <div class="ripple-container"></div>
+                                </button>
+                            </div>
+
+                            <footer class="footer">
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="ripple-container"></div>
+                                        <p >@ViewBag.msg</p>
+                                    </div>
+                                </div>
+                            </footer>
+                               
+                            
+                                
+                          
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <footer class="footer">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12 text-center mt-20"> <a href="/Login/Index" class="text-uppercase text-white">Back</a> </div>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+    <!--/ Application Content --> <!--  Vendor JavaScripts -->
+    @*<script src="~/Content/assets/bundles/libscripts.bundle.js"></script>
+
+      @*Custom JavaScripts 
+    <script src="~/Content/assets/js/main.js"></script>
+    <script src="~/Content/assets/js/jquery.validator.js"></script>*@
+    <!--/ custom javascripts -->
+</body>
+</html>
+<script type="text/javascript">
+  
+
+    $(window).load(function () {
+        $("body").css("visibility", "visible");
+        $("#email").val('');
+        $("#password").val('');
+
+    });
+
+    //$(document).ready(function () {
+    //    $("#email").val('');
+    //    $("#password").val('');
+
+    //    $(".btnsave").click(function (e) {
+    //        alert('asda')
+    //        debugger;
+    //        var check = $('#optionsCheckboxes').is(':checked');
+    //        if(check==false)
+    //        {
+    //            showStatusMsgPopup("2", "Please Accept terms and polices.");
+    //            return false;
+               
+    //        }
+    //    });
+
+
+    //});
+
+    $(document).ready(function () {
+        //$('click', ".btnsave", function (e) {
+
+            $(".btnsave").click(function(){
+          
+            if ($("#frmSignup").valid()) {
+                $.ajax({
+
+                    type: 'POST',
+                    url: '@Url.Content("~/Login/Signup")',
+                    datatype: "JSON",
+                    data: $("#frmSignup").serialize(),
+
+
+                    success: function (data) {
+                        if (data == "Error") {
+                         
+                            showStatusMsgPopup("3", "Signup process failed.");
+                            //Your account has been successfully created. Account information sent successfully on your email.";
+                        }
+                        if (data == "EmailExists") {
+                           
+                            showStatusMsgPopup("2", "Your email address already registered.");
+                            //Your account has been successfully created. Account information sent successfully on your email.";
+                        }
+
+                        if (data == "success") {
+                          
+                            showStatusMsgPopup("1", "Your account has been successfully created. Account information sent successfully on your email.");
+                            setTimeout((function () {
+                                window.location.href = "/Dashboard";
+                            }), 2000);
+                            
+                            //
+                        }
+
+                        if (data == "Acceptterm") {
+
+                            showStatusMsgPopup("2", "Accept terms and conditions.");
+                            //
+                        }
+
+                        else {
+                            //$("#divLeadDetails").html(data)
+                            //$("#AddLeadPopup").modal('hide')
+                        }
+                    }
+                });
+            }
+        });
+    })
+   
+   
+   
+  
+</script>

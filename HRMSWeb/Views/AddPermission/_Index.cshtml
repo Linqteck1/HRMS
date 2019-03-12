@@ -1,0 +1,62 @@
+﻿ @model IEnumerable< DAL.DBEntities.AT_Permission>
+
+
+ @{ InstituteMS.Models.Session_CRM sess = (InstituteMS.Models.Session_CRM)HttpContext.Current.Session["Session_CRM"]; }
+<input type="hidden" id="lbmsg" value="@ViewBag.msg" />   
+<div class="table-responsive">
+     <table class="table table-middle table-bordered table-striped">
+         <thead>
+             <tr>
+                 <th>
+                     Page
+                 </th>
+                 <th>
+                     Permission
+                 </th>
+
+                 <th>
+                     Active
+                 </th>
+                 <th>Action</th>
+             </tr>
+         </thead>
+         <tbody>
+             @{int j = 0;}
+             @foreach (var item in Model)
+             {
+                 <tr>
+                     <td>
+                         @Html.DisplayFor(modelItem => item.AT_Pages.PageName)
+                     </td>
+                     <td>
+                         @Html.DisplayFor(modelItem => item.Permission)
+                     </td>
+
+                     <td>
+                         <div class="checkbox">
+                             <label>
+                                 @Html.DisplayFor(modelItem => item.IsActive)
+                             </label>
+                         </div>
+                     </td>
+                     <td class="width_10">
+                         @{
+
+                 if (CRM_Common.CheckPermissions(PermissionEnum.ManagePermission, CRM_Common.GetControler(this.ViewContext)))
+                 {
+                     <button class="AddUpdatePermission btn btn-raised btn-info btn-sm" id="@item.PermissionID" title="Edit" actionfor="Edit"><i class="fa fa-edit"></i></button>
+                 }
+
+                         }
+
+                     </td>
+
+
+
+                 </tr>
+                 j++;
+             }
+         </tbody>
+     </table>
+
+       </div>

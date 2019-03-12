@@ -1,0 +1,68 @@
+﻿ @model IEnumerable<HRMSWeb.Models.AT_Pages>
+
+<input type="hidden" id="lbmsg" value="@ViewBag.msg" />  
+
+ @{ HRMSWeb.Models.Session_CRM sess = (HRMSWeb.Models.Session_CRM)HttpContext.Current.Session["Session_CRM"]; }
+ <div class="table-responsive">
+     <table class="table table-hover dataTable table-striped w-full" data-plugin="dataTable">
+         <thead>
+             <tr>
+                 <th>
+                     Module
+                 </th>
+                 <th>
+                     Page
+                 </th>
+                 <th>
+                     Page Url
+                 </th>
+                 <th>
+                     Active
+                 </th>
+                 <th>Action</th>
+             </tr>
+         </thead>
+         <tbody>
+             @{int j = 0;}
+             @foreach (var item in Model)
+             {
+                 <tr>
+                     <td>
+                         @Html.DisplayFor(modelItem => item.AT_Modules.ModuleName)
+                     </td>
+                     <td>
+                         @Html.DisplayFor(modelItem => item.PageName)
+                     </td>
+                     <td>
+                         @Html.DisplayFor(modelItem => item.PageUrl)
+                     </td>
+                     <td>
+                         <div class="checkbox">
+                             <label>
+                                 @Html.DisplayFor(modelItem => item.IsActive)
+                             </label>
+                         </div>
+                     </td>
+                     <td class="width_10">
+                         @{
+
+
+
+                             if (CRM_Common.CheckPermissions(PermissionEnum.ManagePages, CRM_Common.GetControler(this.ViewContext)))
+                             {
+                                 <button class="AddUpdatePage btn btn-raised btn-info btn-sm" id="@item.PageID" title="Edit" actionfor="Edit"><i class="fa fa-edit"></i></button>
+                             }
+
+                         }
+
+                     </td>
+
+
+
+                 </tr>
+                                 j++;
+                             }
+         </tbody>
+     </table>
+
+       </div>

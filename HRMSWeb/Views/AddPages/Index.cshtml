@@ -1,0 +1,106 @@
+﻿@*<div class="page-header">
+    <h1 class="page-title">DataTables</h1>
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="../index.html">Home</a></li>
+        <li class="breadcrumb-item"><a href="javascript:void(0)">Tables</a></li>
+        <li class="breadcrumb-item active">DataTables</li>
+    </ol>
+    <div class="page-header-actions">
+        <a class="btn btn-sm btn-primary btn-round" href="http://datatables.net" target="_blank">
+            <i class="icon md-link" aria-hidden="true"></i>
+            <span class="hidden-sm-down">Official Website</span>
+        </a>
+    </div>
+</div>*@
+@model IEnumerable<HRMSWeb.Models.AT_Pages>
+@{ HRMSWeb.Models.Session_CRM sess = (HRMSWeb.Models.Session_CRM)HttpContext.Current.Session["Session_CRM"]; }
+
+
+<div class="page-content">
+   
+
+    <!-- Panel Basic -->
+    <div class="panel">
+       
+
+        <header class="panel-heading">
+          
+            <div class="panel-actions"></div>
+            <h3 class="panel-title">Basic</h3>
+            <div class="col-md-12 text-right">
+                @if (CRM_Common.CheckPermissions(PermissionEnum.ManagePages, CRM_Common.GetControler(this.ViewContext)))
+            {
+                    <a class="AddUpdatePage pull-right btn btn-raised btn-info btn-md" id="0"><i class="fa fa-plus mr-10"></i>Add Page</a>
+                }
+            </div>
+        </header>
+        <div class="panel-body">
+            @{Html.RenderPartial("_Index");}
+        </div>
+    </div>
+    <!-- End Panel Basic -->
+    <script>
+
+
+
+
+    $(document).ready(function () {
+
+
+
+
+        $('body').on("click", ".AddUpdatePage", function () {
+            var id = $(this).attr('id');
+            var title = $(this).attr('actionfor');
+            $.get('@Url.Action("Save", "AddPages")' + '/' + id, function (data) {
+                $('#PageModal').html(data);
+            }).done(function () {
+                $('#PageModal').modal('show');
+                if (title == "View") {
+                    $('#btnSave').hide();
+                    disable_Controls("PageModal");
+                }
+                else {
+                    $('#btnSave').show();
+                }
+            });
+        });
+
+
+
+
+        $('body').on("click", "#btnSave", function () {
+
+           // if ($("#frmPages").valid()) {
+            debugger
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Content("~/AddPages/Save")',
+                datatype: "JSON",
+                data: $("#frmPages").serialize(),
+                success: function (data) {
+                    $('#divPages').html(data);
+                    var msg = $('#divPages').find("#lbmsg").val();
+                    if (msg == "Page saved successfully!") {
+                        showStatusMsgPopup("1", msg);
+                    }
+                    else {
+                        showStatusMsgPopup("3", msg);
+                    }
+                    $('#PageModal').modal('hide');
+                    $('#tblPage').dataTable();
+                }
+            });
+        //}
+       // else {
+        //    return false;
+        //}
+
+        });
+
+
+
+
+  });
+
+    </script>

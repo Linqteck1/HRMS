@@ -1,0 +1,87 @@
+﻿@model DAL.DBEntities.AT_Permission
+
+
+
+<div id="mymodalUpdateSection" class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">Permission</h4>
+        </div>
+        <div class="modal-body">
+
+            <form id="frmPermission">
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-sm-3 col-md-3 control-label">Page :</label>
+                        <div class="col-sm-8 col-md-8">
+                            @Html.DropDownListFor(model => model.PageID, new SelectList(ViewBag.PageList, "PageID", "PageName"), "-- Please Select --", new Dictionary<string, Object> { { "class", "form-control" }, { "custom", "Please Select Page" }, { "validate", "Validate" }, { "customFn", "var a = parseInt(this.value); return a > 0;" } })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 col-md-3 control-label">Permission :</label>
+                        <div class="col-sm-8 col-md-8">
+                            @Html.HiddenFor(model => model.PermissionID)
+                            @Html.HiddenFor(model => model.Actions)
+                            @Html.TextBoxFor(model => model.Permission, new { @class = "form-control", placeholder = "Permission", validate = "Validate", require = "Please Enter Permission Name" })
+
+                        </div>
+
+
+                    </div>
+                    <div id="actiondiv">
+
+                    </div>
+                    <div class="form-group">
+                        <a style="cursor:pointer" id="addaction" class="col-sm-3 col-md-3 pull-right"> <h5>+ Action </h5> </a>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 col-md-3 control-label"></label>
+                        <div class="col-sm-8 col-md-8">
+                            <div class="checkbox">
+                                <label>
+                                    @Html.CheckBoxFor(model => model.IsActive) Active
+                                </label>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </form>
+
+
+        </div>
+
+        <div class="modal-footer">
+@if (CRM_Common.CheckPermissions(PermissionEnum.ManagePermission, CRM_Common.GetControler(this.ViewContext)))
+{
+            <button type="button" id="btnSave" class="btn btn-raised btn-success btn-sm">Save</button>
+}
+            <button type="button" id="btnClose" class="btn btn-raised btn-danger btn-sm" data-dismiss="modal">Close</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        if ($('#Actions').val() != "") {
+            $.each($('#Actions').val().split(','), function (index, e) {
+                var id = index + 1;
+                var lb = "";
+
+                lb = "Action " + id + ":";
+                if (id == 1) {
+                    $('#actiondiv').append("<div class='form-group'> <label class='col-sm-3 col-md-3 control-label'>" + lb + "</label><div class='col-sm-8 col-md-8 '><input class='form-control txtaction' id='" + id + "' name='" + id + "' placeholder='Action' require='Please Enter Action' type='text' value='" + e + "' validate='Validate'></div></div>");
+                }
+                else {
+                    $('#actiondiv').append("<div class='form-group'> <label class='col-sm-3 col-md-3 control-label'>" + lb + "</label><div class='col-sm-7 col-md-7 '><input class='form-control txtaction' id='" + id + "' name='" + id + "' placeholder='Action' require='Please Enter Action' type='text' value='" + e + "' validate='Validate'></div><div class='col-sm-0 col-md-0 '><a class='deleteaction  btn btn-raised btn-danger btn-sm'><li class='fa fa-trash'></li></a></div></div>");
+                }
+            });
+        }
+        else {
+            $('#actiondiv').append(" <div class='form-group'> <label class='col-sm-3 col-md-3 control-label'>Action 1:</label><div class='col-sm-8 col-md-8 '><input class='form-control txtaction' id='1' name='1' placeholder='Action' require='Please Enter Action' type='text' validate='Validate'></div></div>");
+        }
+    });
+
+</script>

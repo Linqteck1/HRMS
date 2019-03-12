@@ -1,0 +1,131 @@
+﻿@model IEnumerable<HRMSWeb.Models.AT_Role>
+@{
+    ViewBag.Title = "Index";
+    Layout = null;
+}
+
+@{ HRMSWeb.Models.Session_CRM sess = (HRMSWeb.Models.Session_CRM)HttpContext.Current.Session["Session_CRM"]; }
+<section class="boxs">
+    <!-- boxs header -->
+    <div class="boxs-header ">
+        <h1 class="custom-font">
+            <strong><i class="fa fa-users mr-10"> </i>Roles</strong>
+        </h1>
+        @if (CRM_Common.CheckPermissions(PermissionEnum.ManageRoles, CRM_Common.GetControler(this.ViewContext)))
+        {
+            <a class="AddUpdateRole btn btn-raised btn-info btn-sm m-0 pull-right" style="margin-top: 4px!important;" id="0"><i class="fa fa-plus mr-10"></i>Add Role</a>
+        }
+    </div>
+
+    <div class="boxs-body">
+        <div class="page static-page-tables">
+            <!-- row -->
+            <div class="row">
+                <div class="col-md-12">
+                    <section class="boxs">
+                        <div class="row ">
+                            <div class="col-md-12" id="divRole">
+                                @if (CRM_Common.CheckPermissions(PermissionEnum.ManageRoles, CRM_Common.GetControler(this.ViewContext)))
+                                {
+                                    Html.RenderPartial("_RoleIndex");
+                                }
+                                <input type="hidden" id="lbmsg" value="@ViewBag.msg" />
+                            </div>
+                        </div>
+                    </section>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</section>
+<div class="modal fade" id="RoleModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-keyboard="false" data-backdrop="static"></div>
+
+<script>
+    $(document).ready(function () {
+        $('#tblRole').dataTable();
+        $.onbody("click", ".DeleteRole", function () {
+            $('#DeleteConfirmation').modal('show');
+            $('#btnDeleteConfirmation').attr("deleteid", $(this).attr('id'));
+        });
+        $.onbody("click", ".AddUpdateRole", function () {
+            var id = $(this).attr('id');
+            var title = $(this).attr('actionfor');
+            $.get('@Url.Action("_RoleSave", "CRM_Setting")' + '/' + id, function (data) {
+                $('#RoleModal').html(data);
+            }).done(function () {
+                $('#RoleModal').modal('show');
+                if (title == "View") {
+                    $('#btnRoleSave').hide();
+                    disable_Controls("RoleModal");
+                }
+                else {
+                    $('#btnRoleSave').show();
+                }
+            });
+        });
+
+
+        $.onbody("click", "#btnDeleteConfirmation", function () {
+            debugger
+            $.post("@Url.Action("RoleDelete", "CRM_Setting")", { id: $(this).attr('deleteid') }, function (data) {
+                if (data == "Conflict") {
+                    showStatusMsgPopup("2", "You Cannot Delete Role Due to User Exist Against Role.");
+                    $('#DeleteConfirmation').modal('hide');
+                }
+                else {
+                    $('#divRole').html(data);
+                    if ($("#lbmsg").val() == "Role deleted successfully!") {
+                        showStatusMsgPopup("1", "Role deleted successfully!");
+                        $('#DeleteConfirmation').modal('hide');
+                        $('#tblRole').dataTable();
+                    }
+                    else {
+                        showStatusMsgPopup("3", "An Error Occured While Proccessing");
+                    }
+                }
+            });
+        });
+
+        $.onbody("click", "#btnRoleSave", function () {
+            if ($("form").valid()) {
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Content("~/CRM_Setting/_RoleSave")',
+                    datatype: "JSON",
+                    data: $("#frmRole").serialize(),
+                    success: function (data) {
+                        if ($('#lbmsg').val() == 'Conflict') {
+                            showStatusMsgPopup("2", 'Role Name Conflicted.');
+                        }
+                        else if (data == "Conflict") {
+                            showStatusMsgPopup("2", "Role Can't be InActive Due to Agent Exist Against role.");
+                        }
+                        else {
+                            $('#divRole').html(data);
+                            $('#RoleModal').modal('hide');
+                            showStatusMsgPopup("1", $('#lbmsg').val());
+                            $('#tblRole').dataTable();
+                        }
+                    }
+                });
+            }
+            // else {
+            //     return false;
+            // }
+
+        });
+
+        $.onbody("click", ".Permissions", function () {
+            var id = $(this).attr('id');
+            @*var link = "@Url.Action("Index", "Permissions", new { id = "myid" })";
+            window.location.href = link.replace("myid", id);*@
+            $.get('/CRM_Setting/PermissionIndex/' + id, function (data) {
+                $("#DivPartial").html(data);
+            });
+        });
+    });
+
+</script>

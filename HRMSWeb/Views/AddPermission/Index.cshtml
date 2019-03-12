@@ -1,0 +1,130 @@
+﻿@model IEnumerable<DAL.DBEntities.AT_Permission>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{ InstituteMS.Models.Session_CRM sess = (InstituteMS.Models.Session_CRM)HttpContext.Current.Session["Session_CRM"]; }
+
+<div class="page static-page-tables">
+    <div class="row">
+        <div class="col-md-12 text-right">
+            @if (CRM_Common.CheckPermissions(PermissionEnum.ManagePermission, CRM_Common.GetControler(this.ViewContext)))
+            {
+                <a class="AddUpdatePermission pull-right btn btn-raised btn-info btn-md" id="0"><i class="fa fa-plus mr-10"></i>Add Permission</a>
+            }
+        </div>
+    </div>
+    <!-- row -->
+    <div class="row">
+        <div class="col-md-12">
+            <section class="boxs ">
+                <!-- boxs header -->
+                <div class="boxs-header dvd dvd-btm">
+                    <h1 class="custom-font"><strong><i class="fa fa-users mr-10"> </i>Permission Information</strong></h1>
+                </div>
+                <div class="">
+                    <div class="row ">
+                        <div class="col-md-12" id="divPermission">
+                            @if (CRM_Common.CheckPermissions(PermissionEnum.ManagePermission, CRM_Common.GetControler(this.ViewContext)))
+                            {
+                                Html.RenderPartial("_Index");
+                            }
+                            <input type="hidden" id="lbmsg" value="@ViewBag.msg" />
+
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div class="modal fade" id="PermissionModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-keyboard="false" data-backdrop="static"></div>
+
+<script>
+
+
+
+
+    $(document).ready(function () {
+
+
+
+
+
+        $('body').on("click", ".AddUpdatePermission", function () {
+            var id = $(this).attr('id');
+            var title = $(this).attr('actionfor');
+            $.get('@Url.Action("Save", "AddPermission")' + '/' + id, function (data) {
+                $('#PermissionModal').html(data);
+            }).done(function () {
+                $('#PermissionModal').modal('show');
+                if (title == "View") {
+                    $('#btnSave').hide();
+                    disable_Controls("PermissionModal");
+                }
+                else {
+                    $('#btnSave').show();
+                }
+            });
+        });
+
+
+
+
+        $('body').on("click", "#btnSave", function () {
+
+            ////if (validate('Validate')) {
+            var actions = [];
+            $.each($('#actiondiv input'), function (index, e) {
+                actions.push($(e).val());
+            });
+            $('#Actions').val(actions.join(','));
+
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Content("~/AddPermission/Save")',
+                datatype: "JSON",
+                data: $("#frmPermission").serialize(),
+                success: function (data) {
+                    $('#divPermission').html(data);
+                    var msg = $('#divPermission').find('#lbmsg').val();
+                    if (msg == "Permission saved successfully!") {
+                        showStatusMsgPopup("1", msg);
+                    }
+                    else
+                    {
+                        showStatusMsgPopup("3", msg);
+                    }
+                    $('#PermissionModal').modal('hide');
+                    $('#tblPermission').dataTable();
+                }
+            });
+            //}
+            //else {
+            //    return false;
+            // }
+
+        });
+
+        $('body').on("click", "#addaction", function () {
+            debugger;
+            var id = $('#actiondiv .txtaction').last().attr('id');
+            var newid = parseInt(id == null ? 1 : id) + 1;
+            var lb = "Action " + newid + ":";
+            $('#actiondiv').append(" <div class='form-group'> <label class='col-sm-3 col-md-3 control-label'>" + lb + "</label><div class='col-sm-7 col-md-7 '><input class='form-control txtaction' id='" + newid + "' name='" + newid + "' placeholder='Action' require='Please Enter Action' type='text' validate='Validate'></div><div class='col-sm-0 col-md-0 '><a class='deleteaction  btn btn-raised btn-danger btn-sm'><li class='fa fa-trash'></li></a></div></div>");
+        });
+        $('body').on("click", ".deleteaction", function () {
+            $(this).parent().parent().remove();
+        });
+
+
+
+
+    });
+
+</script>

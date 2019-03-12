@@ -1,0 +1,125 @@
+﻿
+@model HRMSWeb.Models.AT_Users
+
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Add Agent</h4>
+        </div>
+        <div class="modal-body">
+            <form class="form-horizontal" role="form" id="frmUser">
+                <div class="form-group">
+                    <label class="col-sm-3 col-md-3 control-label">First Name :</label>
+                    <div class="col-sm-8 col-md-8">
+                        @Html.HiddenFor(model => model.UserID)
+                        @Html.TextBoxFor(model => model.FirstName, new { @class = "form-control", placeholder = "First Name" })
+                        @Html.ValidationMessageFor(model => model.FirstName)
+                    </div>
+
+
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 col-md-3 control-label">Last Name :</label>
+                    <div class="col-sm-8 col-md-8">
+
+                        @Html.TextBoxFor(model => model.LastName, new { @class = "form-control", placeholder = "Last Name" })
+                        @Html.ValidationMessageFor(model => model.LastName)
+                    </div>
+
+
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 col-md-3 control-label">Email :</label>
+                    <div class="col-sm-8 col-md-8">
+
+                        @Html.TextBoxFor(model => model.Email, new { autocomplete = "new-password", @class = "form-control", placeholder = "Email" })
+                        @Html.ValidationMessageFor(model => model.Email)
+                    </div>
+
+
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 col-md-3 control-label">Password :</label>
+                    <div class="col-sm-8 col-md-8">
+                        @if (Model != null)
+                        {
+                            @Html.TextBox("Password", CRM_Common.Decrypt(Model.Password), new { @class = "form-control", placeholder = "Password", type = "Password" })
+                        }
+                        else
+                        {
+                            @Html.TextBoxFor(model => model.Password, new { @class = "form-control", placeholder = "Password", type = "Password" })
+                        }
+                        @Html.ValidationMessageFor(model => model.Password)
+
+                    </div>
+
+
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 col-md-3 control-label">Phone :</label>
+                    <div class="col-sm-8 col-md-8">
+
+                        @Html.TextBoxFor(model => model.Phone, new { @class = "form-control", placeholder = "Phone" })
+                        @Html.ValidationMessageFor(model => model.Phone)
+                    </div>
+
+
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 col-md-3 control-label">User Level :</label>
+                    <div class="col-sm-8 col-md-8">
+
+                        @Html.DropDownListFor(model => model.RoleID, new SelectList(ViewBag.RoleList, "RoleID", "RoleName"), new Dictionary<string, Object> { { "class", "form-control selectpicker" } })
+                        @Html.ValidationMessageFor(model => model.RoleID)
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 col-md-3 control-label"></label>
+                    <div class="col-sm-8 col-md-8">
+                        <div class="checkbox">
+                            <label>
+                                @Html.CheckBoxFor(model => model.IsActive)Active
+                            </label>
+                        </div>
+
+                    </div>
+                </div>
+
+
+
+            </form>
+        </div>
+        <div class="modal-footer">
+@if (CRM_Common.CheckPermissions(PermissionEnum.ManageUsers, CRM_Common.GetControler(this.ViewContext)))
+                        {
+            <button type="button" id="btnSave" class="btn btn-raised btn-success btn-sm">Register</button>
+}
+            <button type="button" class="btn btn-raised btn-danger btn-sm" data-dismiss="modal">Cancel</button>
+        </div>
+    </div>
+</div>
+
+
+
+
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+@*<script src="~/Content/assets/js/jquery.maskedinput.min.js"></script>*@
+
+<script>
+    $(document).ready(function () {
+        $(".selectpicker").selectpicker()
+        $("#Phone").mask("(999) 999-9999");
+        $.onbody("keyup", "#ComissionPercentage", function () {
+            if (isNaN($(this).val()) && $(this).val() != "") {
+                showStatusMsgPopup("2", "Percentage must be Number")
+                $(this).val("")
+            }
+            if (parseInt($(this).val()) > 100) {
+                showStatusMsgPopup("2", "Percentage Cannot Be Greater than 100")
+                $(this).val(0)
+            }
+        });
+    })
+</script>
+

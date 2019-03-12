@@ -1,0 +1,9 @@
+﻿.dataTable thead th {
+    background-color: #424242;
+    color: white;
+}
+.paginate_button active
+{
+      background-color: #424242;
+      color: white;
+}

@@ -1,0 +1,70 @@
+﻿
+@model IEnumerable<HRMSWeb.Models.AT_Role>
+@{
+    Layout = null;
+}
+
+@{ HRMSWeb.Models.Session_CRM sess = (HRMSWeb.Models.Session_CRM)HttpContext.Current.Session["Session_CRM"]; }
+<div class="">
+    <input type="hidden" id="lbmsg" value="@ViewBag.msg" />
+    <table id="tblRole" class="table table-middle table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>
+                    Role Name
+                </th>
+                <th>
+                    Active
+                </th>
+
+
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{int j = 0;}
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.RoleName)
+                    </td>
+
+                    <td>
+                        <div class="checkbox">
+                            <label>
+                                @Html.DisplayFor(modelItem => item.IsActive)
+                            </label>
+                        </div>
+
+                    </td>
+                    <td class="width_50">
+                        @{
+                            if (CRM_Common.CheckPermissions(PermissionEnum.ManageRoles, CRM_Common.GetControler(this.ViewContext)))
+                            {
+                                <a class="Permissions btn btn-raised btn-info btn-sm" id="@item.RoleID" title="Permission"><i class="fa fa-check"></i></a>
+                            }
+                            if (CRM_Common.CheckPermissions(PermissionEnum.ManageRoles, CRM_Common.GetControler(this.ViewContext)))
+                            {
+                                <a class="AddUpdateRole btn btn-raised btn-info btn-sm" id="@item.RoleID" title="View" actionfor="View"><i class="fa fa-eye"></i></a>
+                            }
+                            if (CRM_Common.CheckPermissions(PermissionEnum.ManageRoles, CRM_Common.GetControler(this.ViewContext)))
+                            {
+                                <a class="AddUpdateRole btn btn-raised btn-info btn-sm" id="@item.RoleID" title="Edit" actionfor="Edit"><i class="fa fa-edit"></i></a>
+                            }
+                            if (CRM_Common.CheckPermissions(PermissionEnum.ManageRoles, CRM_Common.GetControler(this.ViewContext)))
+                            {
+                                <a class="DeleteRole btn btn-raised btn-info btn-sm" id="@item.RoleID" title="Delete" actionfor="Delete"><i class="fa fa-trash"></i></a>
+                            }
+                        }
+
+                    </td>
+
+
+
+                </tr>
+                                j++;
+                            }
+        </tbody>
+    </table>
+</div>

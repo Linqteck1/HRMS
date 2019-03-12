@@ -1,0 +1,100 @@
+﻿
+@model IEnumerable<HRMSWeb.Models.AT_PermissionGroup>
+@{
+    ViewBag.Title = "Index";
+    Layout = null;
+}
+
+@{ HRMSWeb.Models.Session_CRM sess = (HRMSWeb.Models.Session_CRM)HttpContext.Current.Session["Session_CRM"]; }
+
+<section class="boxs ">
+    <!-- boxs header -->
+    <div class="boxs-header ">
+        <h1 class="custom-font">
+            <strong><i class="fa fa-users mr-10"> </i> Permission Group</strong>
+        </h1>
+        @if (CRM_Common.CheckPermissions(PermissionEnum.ManageGroupPermission, CRM_Common.GetControler(this.ViewContext)))
+{
+    <a class="AddUpdateGroup btn btn-raised btn-info btn-sm m-0 pull-right" style="margin-top: 4px!important;" id="0"><i class="fa fa-plus mr-10"></i>Add Group</a>
+}
+    </div>
+
+    <div class="boxs-body">
+        <div class="page static-page-tables">
+            <!-- row -->
+            <div class="row">
+                <div class="col-md-12">
+                    <section class="boxs ">
+                        <div class="row ">
+                            <div class="col-md-12" id="divGroup">
+@if (CRM_Common.CheckPermissions(PermissionEnum.ManageGroupPermission, CRM_Common.GetControler(this.ViewContext)))
+                    {
+                                Html.RenderPartial("_PermissionGroupIndex");
+}
+                                <input type="hidden" id="lbmsg" value="@ViewBag.msg" />
+                            </div>
+                        </div>
+                    </section>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<div class="modal fade" id="GroupModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-keyboard="false" data-backdrop="static"></div>
+
+<script>
+
+
+
+
+    $(document).ready(function () {
+        $('#tblGroup').dataTable();
+        $.onbody("click", ".AddUpdateGroup", function () {
+            var id = $(this).attr('id');
+            var title = $(this).attr('actionfor');
+            $.get('@Url.Action("_PermissionGroupSave", "CRM_Setting")' + '/' + id, function (data) {
+                $('#GroupModal').html(data);
+            }).done(function () {
+                $('#GroupModal').modal('show');
+                if (title == "View") {
+                    $('#btnSave').hide();
+                    disable_Controls("GroupModal");
+                }
+                else {
+                    $('#btnSave').show();
+                }
+            });
+        });
+        $.onbody("click", "#btnSave", function () {
+
+            if ($("form").valid()) {
+                $("#json_Permissions").val(JSON.stringify(tblToJson($("#tblPermission tbody tr"))));
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Content("~/CRM_Setting/_PermissionGroupSave")',
+                    datatype: "JSON",
+                    data: $("#frmGroup").serialize(),
+                    success: function (data) {
+                        $('#divGroup').html(data);
+                        $('#GroupModal').modal('hide');
+                        $('#tblGroup').dataTable();
+                        if ($("#lbmsg").val() == "Permission Group saved successfully!") {
+                            showStatusMsgPopup("1", $("#lbmsg").val())
+                        }
+                        else {
+                            showStatusMsgPopup("3", "An Error Occured While Processing.")
+                        }
+                    }
+                });
+            }
+            else {
+                return false;
+            }
+        });
+  });
+
+</script>

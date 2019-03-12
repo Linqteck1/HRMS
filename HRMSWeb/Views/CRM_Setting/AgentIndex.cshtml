@@ -1,0 +1,169 @@
+﻿@model IEnumerable<HRMSWeb.Models.AT_Users>
+@{
+    Layout = null;
+}
+
+@{ HRMSWeb.Models.Session_CRM sess = (HRMSWeb.Models.Session_CRM)HttpContext.Current.Session["Session_CRM"]; }
+
+<!-- Delet Confirmation Modal -->
+<div class="modal fade" id="AgentDeleteConfirmation" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="vertical-alignment-helper">
+        <div class="modal-dialog vertical-align-center">
+            <div class="modal-dialog ">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Confirmation</h4>
+                    </div>
+                    <div class="modal-body">
+
+                        <label>Are you sure you want to delete?</label>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-raised btn-danger btn-sm" data-dismiss="modal">No</button>
+                        <button type="submit" id="btnDeleteAgentConfirmation" deleteid class="btn btn-raised btn-success btn-sm">Yes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<section class="boxs ">
+    <!-- boxs header -->
+    <div class="boxs-header ">
+        <h1 class="custom-font">
+            <strong><i class="fa fa-users mr-10"> </i>Agents</strong>
+        </h1>
+        @if (CRM_Common.CheckPermissions(PermissionEnum.ManageUsers, CRM_Common.GetControler(this.ViewContext)))
+        {
+            <a class="btn btn-raised btn-info btn-sm m-0 pull-right AddUpdateUser" style="margin-top: 4px!important;" id="0"><i class="fa fa-plus mr-5"></i>Add Agent</a>
+        }
+    </div>
+
+    <div class="boxs-body">
+        <div class="page static-page-tables">
+            <!-- row -->
+            <div class="row">
+                <div class="col-md-12">
+                    <section class="boxs ">
+                        <div class="row ">
+                            <div class="col-md-12" id="divUser">
+                                @if (CRM_Common.CheckPermissions(PermissionEnum.ManageUsers, CRM_Common.GetControler(this.ViewContext)))
+                                {
+                                    Html.RenderPartial("_AgentIndex");
+                                }
+                                <input type="hidden" id="lbmsg" value="@ViewBag.msg" />
+                            </div>
+                        </div>
+                    </section>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</section>
+<div class="modal fade" id="UserModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-keyboard="false" data-backdrop="static"></div>
+<div class="modal fade" id="PermissionModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-keyboard="false" data-backdrop="static"></div>
+<script type="text/javascript">
+
+
+
+
+    $(document).ready(function () {
+        $('#tblUser').dataTable();
+        $.onbody("click", ".DeleteUser", function () {
+            var id = $(this).attr('id');
+            $("#AgentDeleteConfirmation").modal('show')
+            $("#btnDeleteAgentConfirmation").attr("deleteid", id)
+        });
+        $.onbody("click", "#btnDeleteAgentConfirmation", function () {
+            var id = $(this).attr('deleteid');
+            $.get('@Url.Action("AgentDelete", "CRM_Setting")' + '/' + id, function (data) {
+                debugger
+                $('#divUser').html(data);
+                if ($("#lbMsg").val() == "User Successfully Deleted.") {
+                    $('#tblUser').dataTable();
+                    $('#AgentDeleteConfirmation').modal('hide');
+                    showStatusMsgPopup("1", $("#lbMsg").val());
+                }
+                else {
+                    showStatusMsgPopup("3", "Error Occured While Processing.");
+                }
+            });
+        });
+
+        $.onbody("click", ".AddUpdateUser", function () {
+            var id = $(this).attr('id');
+            var title = $(this).attr('actionfor');
+            $.get('@Url.Action("_AgentSave", "CRM_Setting")' + '/' + id, function (data) {
+                $('#UserModal').html(data);
+            }).done(function () {
+                $('#UserModal').modal('show');
+                if (title == "View") {
+                    $('#btnSave').hide();
+                    disable_Controls("UserModal");
+                }
+                else {
+                    $('#btnSave').show();
+                }
+            });
+        });
+        $.onbody("click", ".addpermisssion", function () {
+            var id = $(this).attr('id');
+            $.get('@Url.Action("GetPermission", "CRM_Setting")' + '/' + id, function (data) {
+                $('#PermissionModal').html(data);
+            }).done(function () {
+                $('#PermissionModal').modal('show');
+
+            });
+        });
+        $.onbody("click", "#btnSave", function () {
+            if ($("form").valid()) {
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Content("~/CRM_Setting/_AgentSave")',
+                    datatype: "JSON",
+                    data: $("#frmUser").serialize(),
+                    success: function (data) {
+                        if (data == "Conflict") {
+                            showStatusMsgPopup("3", "Email Already Exist.");
+                        }
+                        else {
+                            $('#divUser').html(data);
+                            if ($("#lbMsg").val() == "User saved successfully!") {
+                                $('#tblUser').dataTable();
+                                $('#UserModal').modal('hide');
+                                showStatusMsgPopup("1", $("#lbMsg").val());
+                            }
+                            else {
+                                showStatusMsgPopup("3", "Error Occured While Processing.");
+                            }
+                        }
+                       
+                    }
+                });
+            }
+            else {
+                return false;
+            }
+        });
+        $.onbody("click", "#updateExtraPermission", function () {
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Content("~/CRM_Setting/SaveExtraPermission")',
+                datatype: "JSON",
+                data: { lst: JSON.stringify(tblToJson($("#formextraPerimission > li"))) },
+                success: function (data) {
+                    $('#PermissionModal').modal('hide');
+                    showStatusMsgPopup("1", "Successfully Updated.");
+                }
+            });
+        });
+    });
+
+</script>

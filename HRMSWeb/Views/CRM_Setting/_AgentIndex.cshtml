@@ -1,0 +1,80 @@
+﻿@model IEnumerable<HRMSWeb.Models.AT_Users>
+@{
+    Layout = null;
+}
+
+@{ HRMSWeb.Models.Session_CRM sess = (HRMSWeb.Models.Session_CRM)HttpContext.Current.Session["Session_CRM"]; }
+
+
+
+<div class="agents_table">
+    <input type="hidden" id="lbMsg" value="@ViewBag.msg" />
+    
+    <div class="table-responsive">
+        <table id="tblUser" class="table table-middle table-bordered table-striped ">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Permissions</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{int j = 0;}
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        @{
+
+                    string userShortName = string.Empty;
+                    string apphtml = string.Empty;
+                    if (item.PicName != null)
+                    {
+                        apphtml = "<img src='" + item.PicName + "' width='36' height='36'>";
+                    }
+                    else
+                    {
+                        System.Text.RegularExpressions.Regex initials = new System.Text.RegularExpressions.Regex(@"(\b[a-zA-Z])[a-zA-Z]* ?");
+
+                        userShortName = initials.Replace(item.FirstName + " " + item.LastName, "$1").ToUpper();
+                        userShortName = userShortName.Length > 1 ? userShortName.Substring(0, 2).ToString() : userShortName;
+                        apphtml = "<span class='name_initials'>" + userShortName + "</span><span>";
+                    }
+
+
+                        }
+                        <td class="nowrap">@Html.Raw(apphtml)<strong> <a style="cursor:pointer">@Html.Raw(item.FirstName + " " + item.LastName)</a></strong></td>
+
+                        @*<td class="nowrap">@Html.Raw(apphtml)<strong>@Html.Raw(item.FirstName + " " + item.LastName)</strong></td>*@
+                        <td class=""><span class="">@Html.Raw(item.Email)</span></td>
+                        @*<td class="maw-320"><span class="">@Html.Raw(item.Email)</span></td>*@
+                        <td>@Html.Raw(item.Phone)</td>
+                        <td>
+                            @if (CRM_Common.CheckPermissions(PermissionEnum.ManageUsers, CRM_Common.GetControler(this.ViewContext)))
+                            {
+                                <a href="#" class="btn btn-raised btn-info btn-sm addpermisssion" id="@item.UserID"><i class="fa fa-cogs mr-5"></i>Manage</a>
+                            }
+                        </td>
+                        <td>
+                            @if (CRM_Common.CheckPermissions(PermissionEnum.ManageUsers, CRM_Common.GetControler(this.ViewContext)))
+                            {
+                                <a class="AddUpdateUser btn btn-raised btn-info btn-sm" id="@item.UserID" title="Edit" actionfor="Edit"><i class="fa fa-edit"></i></a>
+                            }
+                            @if (CRM_Common.CheckPermissions(PermissionEnum.ManageUsers, CRM_Common.GetControler(this.ViewContext)))
+                            {
+                                <a class="DeleteUser btn btn-raised btn-info btn-sm" id="@item.UserID" title="Delete" actionfor="Delete"><i class="fa fa-trash"></i></a>
+                            }
+                        </td>
+
+                    </tr>
+                            j++;
+                }
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+

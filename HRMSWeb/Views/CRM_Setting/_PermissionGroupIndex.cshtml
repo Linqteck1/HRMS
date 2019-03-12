@@ -1,0 +1,61 @@
+﻿
+@model IEnumerable<HRMSWeb.Models.AT_PermissionGroup>
+
+
+@{ HRMSWeb.Models.Session_CRM sess = (HRMSWeb.Models.Session_CRM)HttpContext.Current.Session["Session_CRM"]; }
+<div class="">
+    <input type="hidden" id="lbmsg" value="@ViewBag.msg" />
+    <table id="tblGroup" class="table table-middle table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>
+                    Name
+                </th>
+
+                <th>
+                    Active
+                </th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{int j = 0;}
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(model => item.Name)
+                    </td>
+
+                    <td>
+                        <div class="checkbox">
+                            <label>
+                                @Html.DisplayFor(model => item.IsActive)
+                            </label>
+                        </div>
+                    </td>
+                    <td class="width_20">
+                        @{
+
+                if (CRM_Common.CheckPermissions(PermissionEnum.ManageGroupPermission, CRM_Common.GetControler(this.ViewContext)))
+                {
+                    <a class="AddUpdateGroup btn btn-raised btn-info btn-sm" id="@item.PermissionGroupID" title="View" actionfor="View"><i class="fa fa-eye"></i></a>
+                }
+                if (CRM_Common.CheckPermissions(PermissionEnum.ManageGroupPermission, CRM_Common.GetControler(this.ViewContext)))
+                {
+                    <a class="AddUpdateGroup btn btn-raised btn-info btn-sm" id="@item.PermissionGroupID" title="Edit" actionfor="Edit"><i class="fa fa-edit"></i></a>
+                }
+
+                        }
+
+                    </td>
+
+
+
+                </tr>
+                j++;
+            }
+        </tbody>
+    </table>
+
+</div>

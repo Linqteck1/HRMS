@@ -1,0 +1,389 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="HRMSModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="AT_Client">
+    <Key>
+      <PropertyRef Name="ClientID" />
+    </Key>
+    <Property Name="ClientID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="500" />
+    <Property Name="IsFeeGenerationAuto" Type="bit" Nullable="false" />
+    <Property Name="PaymentModeBank" Type="bit" Nullable="false" />
+    <Property Name="PaymentModeCash" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AT_Modules">
+    <Key>
+      <PropertyRef Name="ModuleID" />
+    </Key>
+    <Property Name="ModuleID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ModuleName" Type="varchar" MaxLength="50" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+    <Property Name="ModuleOrder" Type="int" />
+    <Property Name="ModuleIcon" Type="varchar" MaxLength="50" />
+    <Property Name="ParentID" Type="int" />
+  </EntityType>
+  <EntityType Name="AT_Pages">
+    <Key>
+      <PropertyRef Name="PageID" />
+    </Key>
+    <Property Name="PageID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ModuleID" Type="int" Nullable="false" />
+    <Property Name="PageName" Type="varchar" MaxLength="50" />
+    <Property Name="PageUrl" Type="varchar" MaxLength="50" />
+    <Property Name="PageOrder" Type="int" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+    <Property Name="PageIcon" Type="varchar" MaxLength="50" />
+    <Property Name="ShowOnMenu" Type="bit" Nullable="false" />
+    <Property Name="Controller" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="AT_Permission">
+    <Key>
+      <PropertyRef Name="PermissionID" />
+    </Key>
+    <Property Name="PermissionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PageID" Type="int" Nullable="false" />
+    <Property Name="Permission" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AT_PermissionActionJunc">
+    <Key>
+      <PropertyRef Name="PermissionActionID" />
+    </Key>
+    <Property Name="PermissionActionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PermissionID" Type="int" Nullable="false" />
+    <Property Name="Action" Type="varchar" MaxLength="100" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AT_PermissionGroup">
+    <Key>
+      <PropertyRef Name="PermissionGroupID" />
+    </Key>
+    <Property Name="PermissionGroupID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+    <Property Name="ClientID" Type="int" Nullable="false" />
+    <Property Name="IsExtrapermission" Type="bit" Nullable="false" />
+    <Property Name="CreateDate" Type="datetime" />
+    <Property Name="CreateBy" Type="int" />
+    <Property Name="UpdateDate" Type="datetime" />
+    <Property Name="UpdateBy" Type="int" />
+  </EntityType>
+  <EntityType Name="AT_PermissionGroupJunc">
+    <Key>
+      <PropertyRef Name="PermissionGroupJuncID" />
+    </Key>
+    <Property Name="PermissionGroupJuncID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PermissionID" Type="int" Nullable="false" />
+    <Property Name="PermissionGroupID" Type="int" Nullable="false" />
+    <Property Name="ClientID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AT_Role">
+    <Key>
+      <PropertyRef Name="RoleID" />
+    </Key>
+    <Property Name="RoleID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ClientID" Type="int" />
+    <Property Name="RoleName" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+    <Property Name="IsDeleted" Type="bit" Nullable="false" />
+    <Property Name="CreateBy" Type="int" />
+    <Property Name="CreateDate" Type="datetime" />
+    <Property Name="UpdateBy" Type="int" />
+    <Property Name="UpdateDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="AT_RolePermissionJunc">
+    <Key>
+      <PropertyRef Name="RolePermissionJuncID" />
+    </Key>
+    <Property Name="RolePermissionJuncID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PermissionID" Type="int" Nullable="false" />
+    <Property Name="RoleID" Type="int" Nullable="false" />
+    <Property Name="IsGroup" Type="bit" Nullable="false" />
+    <Property Name="ClientID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AT_UserExtraPermissionjunc">
+    <Key>
+      <PropertyRef Name="UserExtraPermissionjuncID" />
+    </Key>
+    <Property Name="UserExtraPermissionjuncID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ClientID" Type="int" Nullable="false" />
+    <Property Name="UserID" Type="int" Nullable="false" />
+    <Property Name="PermissionGroupID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AT_Users">
+    <Key>
+      <PropertyRef Name="UserID" />
+    </Key>
+    <Property Name="UserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FirstName" Type="varchar" MaxLength="50" />
+    <Property Name="LastName" Type="varchar" MaxLength="50" />
+    <Property Name="Phone" Type="varchar" MaxLength="50" />
+    <Property Name="Email" Type="varchar" MaxLength="100" />
+    <Property Name="Password" Type="varchar" MaxLength="50" />
+    <Property Name="RoleID" Type="int" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+    <Property Name="PicName" Type="varchar" MaxLength="500" />
+    <Property Name="PicGuid" Type="varchar(max)" />
+    <Property Name="CreateBy" Type="int" />
+    <Property Name="UpdateBy" Type="int" />
+    <Property Name="CreateDate" Type="datetime" />
+    <Property Name="UpdateDate" Type="datetime" />
+    <Property Name="IsDeleted" Type="bit" Nullable="false" />
+    <Property Name="DeleteBy" Type="int" />
+    <Property Name="DeleteDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="Benefit">
+    <Key>
+      <PropertyRef Name="BenefitID" />
+    </Key>
+    <Property Name="BenefitID" Type="int" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Branch">
+    <Key>
+      <PropertyRef Name="BranchID" />
+    </Key>
+    <Property Name="BranchID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Department">
+    <Key>
+      <PropertyRef Name="DepartmentID" />
+    </Key>
+    <Property Name="DepartmentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Designation">
+    <Key>
+      <PropertyRef Name="DesignationID" />
+    </Key>
+    <Property Name="DesignationID" Type="int" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="LeaveType">
+    <Key>
+      <PropertyRef Name="LeaveTypeID" />
+    </Key>
+    <Property Name="LeaveTypeID" Type="int" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="50" />
+    <Property Name="Qty" Type="int" />
+  </EntityType>
+  <EntityType Name="Promotion">
+    <Key>
+      <PropertyRef Name="PromotionID" />
+    </Key>
+    <Property Name="PromotionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="EmployeeID" Type="int" />
+    <Property Name="DesignationID" Type="int" />
+  </EntityType>
+  <EntityType Name="Resign">
+    <Key>
+      <PropertyRef Name="ResignID" />
+    </Key>
+    <Property Name="ResignID" Type="int" Nullable="false" />
+    <Property Name="Reason" Type="varchar" MaxLength="50" />
+    <Property Name="EmployeeID" Type="int" />
+    <Property Name="ResignDate" Type="date" />
+    <Property Name="Status" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Shift">
+    <Key>
+      <PropertyRef Name="ShiftID" />
+    </Key>
+    <Property Name="ShiftID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="50" />
+    <Property Name="Timing" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <Association Name="FK_AT_Users_AT_Role">
+    <End Role="AT_Role" Type="Self.AT_Role" Multiplicity="0..1" />
+    <End Role="AT_Users" Type="Self.AT_Users" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AT_Role">
+        <PropertyRef Name="RoleID" />
+      </Principal>
+      <Dependent Role="AT_Users">
+        <PropertyRef Name="RoleID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Promotion_Designation">
+    <End Role="Designation" Type="Self.Designation" Multiplicity="0..1" />
+    <End Role="Promotion" Type="Self.Promotion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Designation">
+        <PropertyRef Name="DesignationID" />
+      </Principal>
+      <Dependent Role="Promotion">
+        <PropertyRef Name="DesignationID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_vt_Pages_vt_Modules">
+    <End Role="AT_Modules" Type="Self.AT_Modules" Multiplicity="1" />
+    <End Role="AT_Pages" Type="Self.AT_Pages" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AT_Modules">
+        <PropertyRef Name="ModuleID" />
+      </Principal>
+      <Dependent Role="AT_Pages">
+        <PropertyRef Name="ModuleID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_vt_Permission_vt_Pages">
+    <End Role="AT_Pages" Type="Self.AT_Pages" Multiplicity="1" />
+    <End Role="AT_Permission" Type="Self.AT_Permission" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AT_Pages">
+        <PropertyRef Name="PageID" />
+      </Principal>
+      <Dependent Role="AT_Permission">
+        <PropertyRef Name="PageID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_vt_PermissionActionJunc_vt_Permission">
+    <End Role="AT_Permission" Type="Self.AT_Permission" Multiplicity="1" />
+    <End Role="AT_PermissionActionJunc" Type="Self.AT_PermissionActionJunc" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AT_Permission">
+        <PropertyRef Name="PermissionID" />
+      </Principal>
+      <Dependent Role="AT_PermissionActionJunc">
+        <PropertyRef Name="PermissionID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_vt_PermissionGroupJunc_vt_Permission">
+    <End Role="AT_Permission" Type="Self.AT_Permission" Multiplicity="1" />
+    <End Role="AT_PermissionGroupJunc" Type="Self.AT_PermissionGroupJunc" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AT_Permission">
+        <PropertyRef Name="PermissionID" />
+      </Principal>
+      <Dependent Role="AT_PermissionGroupJunc">
+        <PropertyRef Name="PermissionID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_vt_PermissionGroupJunc_vt_PermissionGroup">
+    <End Role="AT_PermissionGroup" Type="Self.AT_PermissionGroup" Multiplicity="1" />
+    <End Role="AT_PermissionGroupJunc" Type="Self.AT_PermissionGroupJunc" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AT_PermissionGroup">
+        <PropertyRef Name="PermissionGroupID" />
+      </Principal>
+      <Dependent Role="AT_PermissionGroupJunc">
+        <PropertyRef Name="PermissionGroupID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_vt_RolePermissionJunc_vt_Role">
+    <End Role="AT_Role" Type="Self.AT_Role" Multiplicity="1" />
+    <End Role="AT_RolePermissionJunc" Type="Self.AT_RolePermissionJunc" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AT_Role">
+        <PropertyRef Name="RoleID" />
+      </Principal>
+      <Dependent Role="AT_RolePermissionJunc">
+        <PropertyRef Name="RoleID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_vt_UserExtraPermissionjunc_vt_PermissionGroup">
+    <End Role="AT_PermissionGroup" Type="Self.AT_PermissionGroup" Multiplicity="1" />
+    <End Role="AT_UserExtraPermissionjunc" Type="Self.AT_UserExtraPermissionjunc" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AT_PermissionGroup">
+        <PropertyRef Name="PermissionGroupID" />
+      </Principal>
+      <Dependent Role="AT_UserExtraPermissionjunc">
+        <PropertyRef Name="PermissionGroupID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_vt_UserExtraPermissionjunc_vt_Users">
+    <End Role="AT_Users" Type="Self.AT_Users" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AT_UserExtraPermissionjunc" Type="Self.AT_UserExtraPermissionjunc" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AT_Users">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="AT_UserExtraPermissionjunc">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="HRMSModelStoreContainer">
+    <EntitySet Name="AT_Client" EntityType="Self.AT_Client" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AT_Modules" EntityType="Self.AT_Modules" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AT_Pages" EntityType="Self.AT_Pages" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AT_Permission" EntityType="Self.AT_Permission" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AT_PermissionActionJunc" EntityType="Self.AT_PermissionActionJunc" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AT_PermissionGroup" EntityType="Self.AT_PermissionGroup" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AT_PermissionGroupJunc" EntityType="Self.AT_PermissionGroupJunc" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AT_Role" EntityType="Self.AT_Role" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AT_RolePermissionJunc" EntityType="Self.AT_RolePermissionJunc" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AT_UserExtraPermissionjunc" EntityType="Self.AT_UserExtraPermissionjunc" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AT_Users" EntityType="Self.AT_Users" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Benefit" EntityType="Self.Benefit" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Branch" EntityType="Self.Branch" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Department" EntityType="Self.Department" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Designation" EntityType="Self.Designation" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="LeaveType" EntityType="Self.LeaveType" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Promotion" EntityType="Self.Promotion" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Resign" EntityType="Self.Resign" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Shift" EntityType="Self.Shift" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_AT_Users_AT_Role" Association="Self.FK_AT_Users_AT_Role">
+      <End Role="AT_Role" EntitySet="AT_Role" />
+      <End Role="AT_Users" EntitySet="AT_Users" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Promotion_Designation" Association="Self.FK_Promotion_Designation">
+      <End Role="Designation" EntitySet="Designation" />
+      <End Role="Promotion" EntitySet="Promotion" />
+    </AssociationSet>
+    <AssociationSet Name="FK_vt_Pages_vt_Modules" Association="Self.FK_vt_Pages_vt_Modules">
+      <End Role="AT_Modules" EntitySet="AT_Modules" />
+      <End Role="AT_Pages" EntitySet="AT_Pages" />
+    </AssociationSet>
+    <AssociationSet Name="FK_vt_Permission_vt_Pages" Association="Self.FK_vt_Permission_vt_Pages">
+      <End Role="AT_Pages" EntitySet="AT_Pages" />
+      <End Role="AT_Permission" EntitySet="AT_Permission" />
+    </AssociationSet>
+    <AssociationSet Name="FK_vt_PermissionActionJunc_vt_Permission" Association="Self.FK_vt_PermissionActionJunc_vt_Permission">
+      <End Role="AT_Permission" EntitySet="AT_Permission" />
+      <End Role="AT_PermissionActionJunc" EntitySet="AT_PermissionActionJunc" />
+    </AssociationSet>
+    <AssociationSet Name="FK_vt_PermissionGroupJunc_vt_Permission" Association="Self.FK_vt_PermissionGroupJunc_vt_Permission">
+      <End Role="AT_Permission" EntitySet="AT_Permission" />
+      <End Role="AT_PermissionGroupJunc" EntitySet="AT_PermissionGroupJunc" />
+    </AssociationSet>
+    <AssociationSet Name="FK_vt_PermissionGroupJunc_vt_PermissionGroup" Association="Self.FK_vt_PermissionGroupJunc_vt_PermissionGroup">
+      <End Role="AT_PermissionGroup" EntitySet="AT_PermissionGroup" />
+      <End Role="AT_PermissionGroupJunc" EntitySet="AT_PermissionGroupJunc" />
+    </AssociationSet>
+    <AssociationSet Name="FK_vt_RolePermissionJunc_vt_Role" Association="Self.FK_vt_RolePermissionJunc_vt_Role">
+      <End Role="AT_Role" EntitySet="AT_Role" />
+      <End Role="AT_RolePermissionJunc" EntitySet="AT_RolePermissionJunc" />
+    </AssociationSet>
+    <AssociationSet Name="FK_vt_UserExtraPermissionjunc_vt_PermissionGroup" Association="Self.FK_vt_UserExtraPermissionjunc_vt_PermissionGroup">
+      <End Role="AT_PermissionGroup" EntitySet="AT_PermissionGroup" />
+      <End Role="AT_UserExtraPermissionjunc" EntitySet="AT_UserExtraPermissionjunc" />
+    </AssociationSet>
+    <AssociationSet Name="FK_vt_UserExtraPermissionjunc_vt_Users" Association="Self.FK_vt_UserExtraPermissionjunc_vt_Users">
+      <End Role="AT_Users" EntitySet="AT_Users" />
+      <End Role="AT_UserExtraPermissionjunc" EntitySet="AT_UserExtraPermissionjunc" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
