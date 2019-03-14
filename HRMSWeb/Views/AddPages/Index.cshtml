@@ -38,6 +38,8 @@
             @{Html.RenderPartial("_Index");}
         </div>
     </div>
+    <div class="modal fade" id="PageModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-keyboard="false" data-backdrop="static"></div>
+
     <!-- End Panel Basic -->
     <script>
 
@@ -67,6 +69,7 @@
         });
 
 
+        //$('#PageModal').modal('show');
 
 
         $('body').on("click", "#btnSave", function () {
