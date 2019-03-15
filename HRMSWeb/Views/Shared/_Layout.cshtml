@@ -40,13 +40,16 @@
     <link rel="stylesheet" href="~/Content/global/vendor/datatables.net-responsive-bs4/dataTables.responsive.bootstrap4.css">
     <link rel="stylesheet" href="~/Content/global/vendor/datatables.net-buttons-bs4/dataTables.buttons.bootstrap4.css">
     <link rel="stylesheet" href="~/Content/assets/examples/css/tables/datatable.css">
-
+    <link rel="stylesheet" href="~/Content/global/vendor/asscrollable/asScrollable.css">
     <!-- Fonts -->
     <link rel="stylesheet" href="~/Content/global/fonts/font-awesome/font-awesome.css">
     <link rel="stylesheet" href="~/Content/global/fonts/material-design/material-design.min.css">
     <link rel="stylesheet" href="~/Content/global/fonts/brand-icons/brand-icons.min.css">
     <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Roboto:300,400,500,300italic'>
-
+    <link rel="stylesheet" href="~/Content/assets/examples/css/uikit/modals.css">
+    <link rel="stylesheet" href="~/Content/global/vendor/ladda/ladda.css">
+    <link rel="stylesheet" href="~/Content/assets/examples/css/uikit/buttons.css">
+    <link href="~/Content/CustomCss.css" rel="stylesheet" />
     <!--[if lt IE 9]>
     <script src="../../global/vendor/html5shiv/html5shiv.min.js"></script>
     <![endif]-->
@@ -60,6 +63,65 @@
       Breakpoints();
     </script>
     <script src="~/Content/global/vendor/jquery/jquery.js"></script>
+    <script>
+        jQuery.extend({
+            stringify: function stringify(obj) {
+                if ("JSON" in window) {
+                    return JSON.stringify(obj);
+                }
+
+                var t = typeof (obj);
+                if (t != "object" || obj === null) {
+                    // simple data type
+                    if (t == "string") obj = '"' + obj + '"';
+
+                    return String(obj);
+                } else {
+                    // recurse array or object
+                    var n, v, json = [], arr = (obj && obj.constructor == Array);
+
+                    for (n in obj) {
+                        v = obj[n];
+                        t = typeof (v);
+                        if (obj.hasOwnProperty(n)) {
+                            if (t == "string") {
+                                v = '"' + v + '"';
+                            } else if (t == "object" && v !== null) {
+                                v = jQuery.stringify(v);
+                            }
+
+                            json.push((arr ? "" : '"' + n + '":') + String(v));
+                        }
+                    }
+
+                    return (arr ? "[" : "{") + String(json) + (arr ? "]" : "}");
+                }
+            }
+        });
+        (function ($) {
+            $.onbody = function (eventName, selector, handler) {
+                if (jQuery._data($("body")[0], "events")) {
+
+                    if (jQuery._data($("body")[0], "events")[eventName]) {
+                        var eventHendlerAttach = $.grep(jQuery._data($("body")[0], "events")[eventName], function (e) {
+                            return e.selector == selector;
+                        });
+                        if (eventHendlerAttach.length == 0) {
+                            return $("body").on(eventName, selector, handler);
+                        }
+                        else {
+                            return false;
+                        }
+                    }
+                    else {
+                        return $("body").on(eventName, selector, handler);
+                    }
+                }
+                else
+                    return $("body").on(eventName, selector, handler);
+            };
+        }(jQuery));
+    </script>
 </head>
 <body class="animsition dashboard">
     <!--[if lt IE 8]>
@@ -693,6 +755,9 @@
     <script src="~/Content/global/vendor/datatables.net-buttons-bs4/buttons.bootstrap4.js"></script>
     <script src="~/Content/global/vendor/asrange/jquery-asRange.min.js"></script>
     <script src="~/Content/global/vendor/bootbox/bootbox.js"></script>
+    <script src="~/Content/global/vendor/asprogress/jquery-asProgress.js"></script>
+    <script src="~/Content/global/vendor/draggabilly/draggabilly.pkgd.js"></script>
+    <script src="~/Content/global/vendor/raty/jquery.raty.js"></script>
     <!-- Scripts -->
     <script src="~/Content/global/js/Component.js"></script>
     <script src="~/Content/global/js/Plugin.js"></script>
@@ -708,7 +773,9 @@
     <script src="~/Content/global/js/config/colors.js"></script>
     <script src="~/Content/assets/js/config/tour.js"></script>
     <script>Config.set('assets', '~/Content/assets');</script>
-
+    <script src="~/Content/global/js/Plugin/loading-button.js"></script>
+    <script src="~/Content/global/js/Plugin/more-button.js"></script>
+    <script src="~/Content/global/js/Plugin/ladda.js"></script>
     <!-- Page -->
     <script src="~/Content/assets/js/Site.js"></script>
     <script src="~/Content/global/js/Plugin/asscrollable.js"></script>

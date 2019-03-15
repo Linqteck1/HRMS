@@ -6,82 +6,86 @@
 @{ HRMSWeb.Models.Session_CRM sess = (HRMSWeb.Models.Session_CRM)HttpContext.Current.Session["CRM_Session"]; }
 
 
-
-<div class="page">
-    <!-- row -->
-    <div class="row">
-        <div class="col-md-3">
-            <section class="boxs">
-                <div class="tcol">
-                    <div class="p-15 collapse in collapse-xs collapse-sm" id="mail-nav">
-                        <ul class="nav nav-pills nav-stacked nav-sm" id="mail-folders">
-                            @if (CRM_Common.CheckPermissions(PermissionEnum.ManageUsers, CRM_Common.GetControler(this.ViewContext)))
-                            {
-                                <li class=""><a class="LiSettingCRM" title="Agents">Agents</a></li>
-                            }
-                            @if (CRM_Common.CheckPermissions(PermissionEnum.ManageRoles, CRM_Common.GetControler(this.ViewContext)))
-                            {
-                                <li class=""><a class="LiSettingCRM" title="Roles">Roles</a></li>
-                            }
-                            @if (CRM_Common.CheckPermissions(PermissionEnum.ManageGroupPermission, CRM_Common.GetControler(this.ViewContext)))
-                            {
-                                <li class=""><a class="LiSettingCRM" title="Permissoins">Permissions</a></li>
-                            }
-                        </ul>
-                    </div>
-                </div>
-            </section>
-            <section class="boxs">
-                <div class="tcol">
-                    <div class="p-15 collapse in collapse-xs collapse-sm" id="mail-nav">
-                        <ul class="nav nav-pills nav-stacked nav-sm" id="mail-folders">
-                           @if (CRM_Common.CheckPermissions(PermissionEnum.ManageUserProfile, CRM_Common.GetControler(this.ViewContext)))
-                            {
-                                <li class=""><a class="LiSettingCRM" title="Profile">Profile</a></li>
-                            }
-                         
-                        </ul>
-                    </div>
-                </div>
-            </section>
-        </div>
-        <div class="col-md-9" id="DivPartial">
-          
-        </div>
+<div class="page-content">
+ <div>
+     <div class="panel nav-tabs-horizontal" data-plugin="tabs">
+         <div class="panel-heading">
+             <h3 class="panel-title">Tabs In The Panel</h3>
+         </div>
+         <ul class="nav nav-tabs nav-tabs-line" role="tablist">
+           @if (CRM_Common.CheckPermissions(PermissionEnum.ManageUsers, CRM_Common.GetControler(this.ViewContext)))
+           {
+               <li class="nav-item">
+                 <a class="nav-link  LiSettingCRM" data-toggle="tab" href="#DivPartial"
+                    aria-controls="exampleTopHome" role="tab" title="Agents"><i class="icon md-home" aria-hidden="true"></i>Agents</a>
+             </li>
+           }
+@if (CRM_Common.CheckPermissions(PermissionEnum.ManageRoles, CRM_Common.GetControler(this.ViewContext)))
+{
+             <li class="nav-item">
+                 <a class="nav-link LiSettingCRM" data-toggle="tab" href="#exampleTopComponents"
+                    aria-controls="exampleTopComponents" role="tab" title="Roles"><i class="icon md-account" aria-hidden="true"></i>Roles</a>
+             </li>
+}
+@if (CRM_Common.CheckPermissions(PermissionEnum.ManageGroupPermission, CRM_Common.GetControler(this.ViewContext)))
+{
+             <li class="nav-item">
+                 <a class="nav-link LiSettingCRM" data-toggle="tab" href="#exampleTopCss" aria-controls="exampleTopCss"
+                    role="tab" title="Permissoins"><i class="icon md-label" aria-hidden="true" ></i>Permissions</a>
+             </li>
+}
+@if (CRM_Common.CheckPermissions(PermissionEnum.ManageUserProfile, CRM_Common.GetControler(this.ViewContext)))
+{
+             <li class="nav-item">
+                 <a class="nav-link LiSettingCRM" data-toggle="tab" href="#exampleTopJavascript"
+                    aria-controls="exampleTopJavascript" role="tab" title="Profile"><i class="icon md-cloud" aria-hidden="true"></i>Profile</a>
+             </li>
+}
+         </ul>
+        
+         <div class="panel-body">
+             <div class="tab-content">
+                 <div class="tab-pane" id="DivPartial" role="tabpanel">
+                   
+                 </div>
+              
+             </div>
+         </div>
+     </div>
+ </div>
     </div>
-</div>
-<script>
-    $(document).ready(function () {
-        if (window.location.pathname == "/CRM_Setting/Index/Profile") {
-            $(".LiSettingCRM").parent().removeClass('active')
-            $("[title='Profile']").parent().addClass('active')
-            $.get('/CRM_Setting/UserProfileIndex', function (data) {
-                $('#DivPartial').html(data);
-            });
-        }
-        $(".LiSettingCRM").click(function () {
-            debugger
-            $(".LiSettingCRM").parent().removeClass('active')
-            $(this).parent().addClass('active')
-            var Title = $(this).attr('title')
-            var StrURL = "";
-            switch (Title) {
-                case "Agents":
-                    StrURL = "AgentIndex";
-                    break;
-                case "Roles":
-                    StrURL = "RoleIndex";
-                    break;
-                case "Permissoins":
-                    StrURL = "PermissionGroupIndex";
-                    break;
-                case "Profile":
-                    StrURL = "UserProfileIndex";
-                    break;
-             }
-            $.get('/CRM_Setting/' + StrURL + '', function (data) {
-                $('#DivPartial').html(data);
-            });
+    <script>
+        $(document).ready(function () {
+            if (window.location.pathname == "/CRM_Setting/Index/Profile") {
+                $(".LiSettingCRM").parent().removeClass('active')
+                $("[title='Profile']").parent().addClass('active')
+                $.get('/CRM_Setting/UserProfileIndex', function (data) {
+                    $('#DivPartial').html(data);
+                });
+            }
+            $(".LiSettingCRM").click(function () {
+                debugger
+                $(".LiSettingCRM").parent().removeClass('active')
+                $(this).parent().addClass('active')
+                var Title = $(this).attr('title')
+                var StrURL = "";
+                switch (Title) {
+                    case "Agents":
+                        StrURL = "AgentIndex";
+                        break;
+                    case "Roles":
+                        StrURL = "RoleIndex";
+                        break;
+                    case "Permissoins":
+                        StrURL = "PermissionGroupIndex";
+                        break;
+                    case "Profile":
+                        StrURL = "UserProfileIndex";
+                        break;
+                }
+                $.get('/CRM_Setting/' + StrURL + '', function (data) {
+                    $('#DivPartial').html(data);
+                });
+            })
         })
-    })
-</script>
+    </script>

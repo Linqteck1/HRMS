@@ -1,9 +1,39 @@
 ﻿.dataTable thead th {
-    background-color: #424242;
+    background-color: #3f51b5;
     color: white;
 }
 .paginate_button active
 {
       background-color: #424242;
       color: white;
+}
+.name_initials {
+	background: #fff;
+	padding: 21px;
+	font-size: 26px!important;
+	line-height: 78px;
+	border-radius: 50%;
+	color: #ffcd00;
+	border: 1px solid #000;
+}
+span.image_initials.name_initials {
+    border-color: transparent;
+}
+
+span.image_initials.name_initials img {
+    width: 43px;
+    height: 43px;
+    border-radius: 50px;
+    position: relative;
+    left: -10px;
+}
+.agents_table .name_initials{
+	background: #fff;
+    padding: 10px;
+    border-radius: 50%;
+    color: #1b1a18;
+    font-weight: 500;
+    font-size: 15px!important;
+    border: 2px solid #3f51b5;
+	line-height: 2.428571;
 }
