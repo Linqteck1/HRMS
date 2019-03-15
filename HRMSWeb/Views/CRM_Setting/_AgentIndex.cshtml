@@ -54,17 +54,23 @@
                         <td>
                             @if (CRM_Common.CheckPermissions(PermissionEnum.ManageUsers, CRM_Common.GetControler(this.ViewContext)))
                             {
-                                <a href="#" class="btn btn-raised btn-info btn-sm addpermisssion" id="@item.UserID"><i class="fa fa-cogs mr-5"></i>Manage</a>
+                                <button type="button" class="btn btn-primary addpermisssion" id="@item.UserID"><i class="fa fa-cogs" aria-hidden="true"></i> Manage</button>
+
+                                @*<a href="#" class="btn btn-raised btn-info btn-sm addpermisssion" id="@item.UserID"><i class="fa fa-cogs mr-5"></i>Manage</a>*@
                             }
                         </td>
                         <td>
                             @if (CRM_Common.CheckPermissions(PermissionEnum.ManageUsers, CRM_Common.GetControler(this.ViewContext)))
                             {
-                                <a class="AddUpdateUser btn btn-raised btn-info btn-sm" id="@item.UserID" title="Edit" actionfor="Edit"><i class="fa fa-edit"></i></a>
+                                <button type="button" class="AddUpdateUser btn btn-icon btn-primary" id="@item.UserID" title="Edit" actionfor="Edit"><i class="fa fa-edit" aria-hidden="true"></i></button>
+
+                                @*<a class="AddUpdateUser btn btn-raised btn-info btn-sm" id="@item.UserID" title="Edit" actionfor="Edit"><i class="fa fa-edit"></i></a>*@
                             }
                             @if (CRM_Common.CheckPermissions(PermissionEnum.ManageUsers, CRM_Common.GetControler(this.ViewContext)))
                             {
-                                <a class="DeleteUser btn btn-raised btn-info btn-sm" id="@item.UserID" title="Delete" actionfor="Delete"><i class="fa fa-trash"></i></a>
+                                <button type="button" class="DeleteUser btn btn-icon btn-primary" id="@item.UserID" title="Delete" actionfor="Delete"><i class="fa fa-trash" aria-hidden="true"></i></button>
+
+                                @*<a class="DeleteUser btn btn-raised btn-info btn-sm" id="@item.UserID" title="Delete" actionfor="Delete"><i class="fa fa-trash"></i></a>*@
                             }
                         </td>
 

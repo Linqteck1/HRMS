@@ -30,7 +30,11 @@
             <div class="col-md-12 text-right">
                 @if (CRM_Common.CheckPermissions(PermissionEnum.ManagePages, CRM_Common.GetControler(this.ViewContext)))
             {
-                    <a class="AddUpdatePage pull-right btn btn-raised btn-info btn-md" id="0"><i class="fa fa-plus mr-10"></i>Add Page</a>
+                
+                   
+                        <button type="button" id="0" class="AddUpdatePage  btn btn-block btn-primary">Add Page</button>
+                 
+                    @*<a class="AddUpdatePage pull-right btn btn-block btn-primary"  id="0"><i class="fa fa-plus mr-10"></i>Add Page</a>*@
                 }
             </div>
         </header>
@@ -38,7 +42,9 @@
             @{Html.RenderPartial("_Index");}
         </div>
     </div>
-    <div class="modal fade" id="PageModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-keyboard="false" data-backdrop="static"></div>
+    <div class="modal fade modal-primary" id="PageModal" aria-hidden="true" aria-labelledby="myModalLabel"
+         role="dialog" tabindex="-1"></div>
+        @*<div class="modal fade" id="PageModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-keyboard="false" data-backdrop="static"></div>*@
     </div>
     <!-- End Panel Basic -->
     <script>

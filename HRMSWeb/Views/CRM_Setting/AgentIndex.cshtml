@@ -39,7 +39,9 @@
         </h1>
         @if (CRM_Common.CheckPermissions(PermissionEnum.ManageUsers, CRM_Common.GetControler(this.ViewContext)))
         {
-            <a class="btn btn-raised btn-info btn-sm m-0 pull-right AddUpdateUser" style="margin-top: 4px!important;" id="0"><i class="fa fa-plus mr-5"></i>Add Agent</a>
+            <button type="button" id="0" class="AddUpdateUser  btn btn-block btn-primary">Add User</button>
+
+            @*<a class="btn btn-raised btn-info btn-sm m-0 pull-right AddUpdateUser" style="margin-top: 4px!important;" id="0"><i class="fa fa-plus mr-5"></i>Add Agent</a>*@
         }
     </div>
 <div class="col-md-12" id="divUser">
@@ -51,8 +53,9 @@
 </div>
 
     
-
-<div class="modal fade" id="UserModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-keyboard="false" data-backdrop="static"></div>
+<div class="modal fade modal-primary" id="UserModal" aria-hidden="true" aria-labelledby="myModalLabel"
+     role="dialog" tabindex="-1"></div>
+@*<div class="modal fade" id="UserModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-keyboard="false" data-backdrop="static"></div>*@
 <div class="modal fade" id="PermissionModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-keyboard="false" data-backdrop="static"></div>
 <script type="text/javascript">
 

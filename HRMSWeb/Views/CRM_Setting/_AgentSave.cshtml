@@ -10,81 +10,71 @@
         <div class="modal-body">
             <form class="form-horizontal" role="form" id="frmUser">
                 <div class="form-group">
-                    <label class="col-sm-3 col-md-3 control-label">First Name :</label>
-                    <div class="col-sm-8 col-md-8">
-                        @Html.HiddenFor(model => model.UserID)
-                        @Html.TextBoxFor(model => model.FirstName, new { @class = "form-control", placeholder = "First Name" })
-                        @Html.ValidationMessageFor(model => model.FirstName)
-                    </div>
+                    <div class="example-grid">
+                        <div class="row">
+                            <div class="col-lg-6">
 
+                                <label class="control-label">First Name :</label>
+                                @Html.HiddenFor(model => model.UserID)
+                                @Html.TextBoxFor(model => model.FirstName, new { @class = "form-control", placeholder = "First Name" })
+                                @Html.ValidationMessageFor(model => model.FirstName)
+                            </div>
+                            <div class="col-lg-6">
+                                <label class="control-label">Last Name :</label>
 
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-3 col-md-3 control-label">Last Name :</label>
-                    <div class="col-sm-8 col-md-8">
+                                @Html.TextBoxFor(model => model.LastName, new { @class = "form-control", placeholder = "Last Name" })
+                                @Html.ValidationMessageFor(model => model.LastName)
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <label class="control-label">Email :</label>
+                                @Html.TextBoxFor(model => model.Email, new { autocomplete = "new-password", @class = "form-control", placeholder = "Email" })
+                                @Html.ValidationMessageFor(model => model.Email)
+                            </div>
+                            <div class="col-lg-6">
+                                <label class="control-label">Password :</label>
 
-                        @Html.TextBoxFor(model => model.LastName, new { @class = "form-control", placeholder = "Last Name" })
-                        @Html.ValidationMessageFor(model => model.LastName)
-                    </div>
+                               @if (Model != null)
+                               {
+                                @Html.TextBox("Password", CRM_Common.Decrypt(Model.Password), new { @class = "form-control", placeholder = "Password", type = "Password" })
+                               }
+                               else
+                               {
+                                @Html.TextBoxFor(model => model.Password, new { @class = "form-control", placeholder = "Password", type = "Password" })
+                               }
+                            @Html.ValidationMessageFor(model => model.Password)
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <label class="control-label">Phone :</label>
+                                @Html.TextBoxFor(model => model.Phone, new { @class = "form-control", placeholder = "Phone" })
+                                @Html.ValidationMessageFor(model => model.Phone)
+                            </div>
+                            <div class="col-lg-6">
+                                <label class="control-label">User Level :</label>
 
-
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-3 col-md-3 control-label">Email :</label>
-                    <div class="col-sm-8 col-md-8">
-
-                        @Html.TextBoxFor(model => model.Email, new { autocomplete = "new-password", @class = "form-control", placeholder = "Email" })
-                        @Html.ValidationMessageFor(model => model.Email)
-                    </div>
-
-
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-3 col-md-3 control-label">Password :</label>
-                    <div class="col-sm-8 col-md-8">
-                        @if (Model != null)
-                        {
-                            @Html.TextBox("Password", CRM_Common.Decrypt(Model.Password), new { @class = "form-control", placeholder = "Password", type = "Password" })
-                        }
-                        else
-                        {
-                            @Html.TextBoxFor(model => model.Password, new { @class = "form-control", placeholder = "Password", type = "Password" })
-                        }
-                        @Html.ValidationMessageFor(model => model.Password)
-
-                    </div>
-
-
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-3 col-md-3 control-label">Phone :</label>
-                    <div class="col-sm-8 col-md-8">
-
-                        @Html.TextBoxFor(model => model.Phone, new { @class = "form-control", placeholder = "Phone" })
-                        @Html.ValidationMessageFor(model => model.Phone)
-                    </div>
-
-
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-3 col-md-3 control-label">User Level :</label>
-                    <div class="col-sm-8 col-md-8">
-
-                        @Html.DropDownListFor(model => model.RoleID, new SelectList(ViewBag.RoleList, "RoleID", "RoleName"), new Dictionary<string, Object> { { "class", "form-control selectpicker" } })
-                        @Html.ValidationMessageFor(model => model.RoleID)
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-3 col-md-3 control-label"></label>
-                    <div class="col-sm-8 col-md-8">
-                        <div class="checkbox">
-                            <label>
+                                @Html.DropDownListFor(model => model.RoleID, new SelectList(ViewBag.RoleList, "RoleID", "RoleName"), new Dictionary<string, Object> { { "class", "form-control selectpicker" } })
+                                @Html.ValidationMessageFor(model => model.RoleID)
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                
                                 @Html.CheckBoxFor(model => model.IsActive)Active
-                            </label>
+                            </div>
+                            <div class="col-lg-6">
+
+                            </div>
                         </div>
 
                     </div>
+
+                    
                 </div>
+
+         
 
 
 
@@ -92,10 +82,12 @@
         </div>
         <div class="modal-footer">
 @if (CRM_Common.CheckPermissions(PermissionEnum.ManageUsers, CRM_Common.GetControler(this.ViewContext)))
-                        {
-            <button type="button" id="btnSave" class="btn btn-raised btn-success btn-sm">Register</button>
+{
+    <button type="button" class="btn btn-default btn-pure" id="btnClose" data-dismiss="modal">Close</button>
+    <button type="button" class="btn btn-primary" id="btnSave">Register</button>
+            @*<button type="button" id="btnSave" class="btn btn-raised btn-success btn-sm">Register</button>*@
 }
-            <button type="button" class="btn btn-raised btn-danger btn-sm" data-dismiss="modal">Cancel</button>
+            @*<button type="button" class="btn btn-raised btn-danger btn-sm" data-dismiss="modal">Cancel</button>*@
         </div>
     </div>
 </div>

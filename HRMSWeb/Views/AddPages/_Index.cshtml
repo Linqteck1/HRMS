@@ -50,7 +50,9 @@
 
                              if (CRM_Common.CheckPermissions(PermissionEnum.ManagePages, CRM_Common.GetControler(this.ViewContext)))
                              {
-                                 <button class="AddUpdatePage btn btn-raised btn-info btn-sm" id="@item.PageID" title="Edit" actionfor="Edit"><i class="fa fa-edit"></i></button>
+                                <button type="button" class="AddUpdatePage btn btn-icon btn-primary" id="@item.PageID" title="Edit" actionfor="Edit"><i class="fa fa-edit" aria-hidden="true"></i></button>
+
+                                 @*<button class="AddUpdatePage btn btn-raised btn-info btn-sm" id="@item.PageID" title="Edit" actionfor="Edit"><i class="fa fa-edit"></i></button>*@
                              }
 
                          }
