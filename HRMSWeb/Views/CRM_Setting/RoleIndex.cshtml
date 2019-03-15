@@ -5,42 +5,24 @@
 }
 
 @{ HRMSWeb.Models.Session_CRM sess = (HRMSWeb.Models.Session_CRM)HttpContext.Current.Session["Session_CRM"]; }
-<section class="boxs">
+<div class="boxs-header ">
+    <h1 class="custom-font">
+        <strong>Roles</strong>
+    </h1>
+    @if (CRM_Common.CheckPermissions(PermissionEnum.ManageRoles, CRM_Common.GetControler(this.ViewContext)))
+    {
+        <a class="AddUpdateRole btn btn-raised btn-info btn-sm m-0 pull-right" style="margin-top: 4px!important;" id="0"><i class="fa fa-plus mr-10"></i>Add Role</a>
+    }
+</div>
+
     <!-- boxs header -->
-    <div class="boxs-header ">
-        <h1 class="custom-font">
-            <strong><i class="fa fa-users mr-10"> </i>Roles</strong>
-        </h1>
-        @if (CRM_Common.CheckPermissions(PermissionEnum.ManageRoles, CRM_Common.GetControler(this.ViewContext)))
-        {
-            <a class="AddUpdateRole btn btn-raised btn-info btn-sm m-0 pull-right" style="margin-top: 4px!important;" id="0"><i class="fa fa-plus mr-10"></i>Add Role</a>
-        }
-    </div>
-
-    <div class="boxs-body">
-        <div class="page static-page-tables">
-            <!-- row -->
-            <div class="row">
-                <div class="col-md-12">
-                    <section class="boxs">
-                        <div class="row ">
-                            <div class="col-md-12" id="divRole">
-                                @if (CRM_Common.CheckPermissions(PermissionEnum.ManageRoles, CRM_Common.GetControler(this.ViewContext)))
-                                {
-                                    Html.RenderPartial("_RoleIndex");
-                                }
-                                <input type="hidden" id="lbmsg" value="@ViewBag.msg" />
-                            </div>
-                        </div>
-                    </section>
-
-                </div>
-
-            </div>
-
-        </div>
-    </div>
-</section>
+   <div class="col-md-12" id="divRole">
+    @if (CRM_Common.CheckPermissions(PermissionEnum.ManageRoles, CRM_Common.GetControler(this.ViewContext)))
+    {
+        Html.RenderPartial("_RoleIndex");
+    }
+    <input type="hidden" id="lbmsg" value="@ViewBag.msg" />
+</div>
 <div class="modal fade" id="RoleModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-keyboard="false" data-backdrop="static"></div>
 
 <script>

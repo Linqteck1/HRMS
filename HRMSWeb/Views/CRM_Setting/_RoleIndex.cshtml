@@ -5,9 +5,9 @@
 }
 
 @{ HRMSWeb.Models.Session_CRM sess = (HRMSWeb.Models.Session_CRM)HttpContext.Current.Session["Session_CRM"]; }
-<div class="">
+<div >
     <input type="hidden" id="lbmsg" value="@ViewBag.msg" />
-    <table id="tblRole" class="table table-middle table-bordered table-striped">
+    <table id="tblRole" class="table table-hover dataTable table-striped w-full" data-plugin="dataTable">
         <thead>
             <tr>
                 <th>

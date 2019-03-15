@@ -31,7 +31,7 @@
 </div>
 
 
-<section class="boxs ">
+
     <!-- boxs header -->
     <div class="boxs-header ">
         <h1 class="custom-font">
@@ -42,31 +42,16 @@
             <a class="btn btn-raised btn-info btn-sm m-0 pull-right AddUpdateUser" style="margin-top: 4px!important;" id="0"><i class="fa fa-plus mr-5"></i>Add Agent</a>
         }
     </div>
+<div class="col-md-12" id="divUser">
+    @if (CRM_Common.CheckPermissions(PermissionEnum.ManageUsers, CRM_Common.GetControler(this.ViewContext)))
+    {
+        Html.RenderPartial("_AgentIndex");
+    }
+    <input type="hidden" id="lbmsg" value="@ViewBag.msg" />
+</div>
 
-    <div class="boxs-body">
-        <div class="page static-page-tables">
-            <!-- row -->
-            <div class="row">
-                <div class="col-md-12">
-                    <section class="boxs ">
-                        <div class="row ">
-                            <div class="col-md-12" id="divUser">
-                                @if (CRM_Common.CheckPermissions(PermissionEnum.ManageUsers, CRM_Common.GetControler(this.ViewContext)))
-                                {
-                                    Html.RenderPartial("_AgentIndex");
-                                }
-                                <input type="hidden" id="lbmsg" value="@ViewBag.msg" />
-                            </div>
-                        </div>
-                    </section>
+    
 
-                </div>
-
-            </div>
-
-        </div>
-    </div>
-</section>
 <div class="modal fade" id="UserModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-keyboard="false" data-backdrop="static"></div>
 <div class="modal fade" id="PermissionModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-keyboard="false" data-backdrop="static"></div>
 <script type="text/javascript">
