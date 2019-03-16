@@ -42,19 +42,27 @@
                         @{
                             if (CRM_Common.CheckPermissions(PermissionEnum.ManageRoles, CRM_Common.GetControler(this.ViewContext)))
                             {
-                                <a class="Permissions btn btn-raised btn-info btn-sm" id="@item.RoleID" title="Permission"><i class="fa fa-check"></i></a>
+                                <button type="button" class="Permissions btn btn-icon btn-primary" id="@item.RoleID" title="Permission" actionfor="Edit"><i class="fa fa-check" aria-hidden="true"></i></button>
+
+                                @*<a class="Permissions btn btn-raised btn-info btn-sm" id="@item.RoleID" title="Permission"><i class="fa fa-check"></i></a>*@
                             }
                             if (CRM_Common.CheckPermissions(PermissionEnum.ManageRoles, CRM_Common.GetControler(this.ViewContext)))
                             {
-                                <a class="AddUpdateRole btn btn-raised btn-info btn-sm" id="@item.RoleID" title="View" actionfor="View"><i class="fa fa-eye"></i></a>
+                                <button type="button" class="AddUpdateRole btn btn-icon btn-primary" id="@item.RoleID" title="View" actionfor="View"><i class="fa fa-eye" aria-hidden="true"></i></button>
+
+                                @*<a class="AddUpdateRole btn btn-raised btn-info btn-sm" id="@item.RoleID" title="View" actionfor="View"><i class="fa fa-eye"></i></a>*@
                             }
                             if (CRM_Common.CheckPermissions(PermissionEnum.ManageRoles, CRM_Common.GetControler(this.ViewContext)))
                             {
-                                <a class="AddUpdateRole btn btn-raised btn-info btn-sm" id="@item.RoleID" title="Edit" actionfor="Edit"><i class="fa fa-edit"></i></a>
+                                <button type="button" class="AddUpdateRole btn btn-icon btn-primary" id="@item.RoleID" title="Edit" actionfor="Edit"><i class="fa fa-edit" aria-hidden="true"></i></button>
+
+                                @*<a class="AddUpdateRole btn btn-raised btn-info btn-sm" id="@item.RoleID" title="Edit" actionfor="Edit"><i class="fa fa-edit"></i></a>*@
                             }
                             if (CRM_Common.CheckPermissions(PermissionEnum.ManageRoles, CRM_Common.GetControler(this.ViewContext)))
                             {
-                                <a class="DeleteRole btn btn-raised btn-info btn-sm" id="@item.RoleID" title="Delete" actionfor="Delete"><i class="fa fa-trash"></i></a>
+                                <button type="button" class="DeleteRole btn btn-icon btn-primary" id="@item.RoleID" title="Delete" actionfor="Delete"><i class="fa fa-trash" aria-hidden="true"></i></button>
+
+                                @*<a class="DeleteRole btn btn-raised btn-info btn-sm" id="@item.RoleID" title="Delete" actionfor="Delete"><i class="fa fa-trash"></i></a>*@
                             }
                         }
 

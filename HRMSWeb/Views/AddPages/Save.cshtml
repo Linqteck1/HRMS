@@ -3,74 +3,104 @@
 
 
             <div id="mymodalUpdateSection" class="modal-dialog modal-lg" role="document">
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-						<h4 class="modal-title" id="myModalLabel">Page</h4>
-					</div>
-					<div class="modal-body">
-                       
-                         <form id="frmPages" >
-                             @* div start *@
-                             <div class="form-horizontal">
-                                 <div class="form-group">
-                                     <label class="col-sm-2 col-md-2 control-label">Module Name</label>
-                                     <div class="col-sm-4 col-md-4">
-                                         @Html.DropDownListFor(model => model.ModuleID, new SelectList(ViewBag.ModuleList, "ModuleID", "ModuleName"), "-- Please Select --", new Dictionary<string, Object> { { "class", "form-control" }, { "custom", "Please Select Module" }, { "validate", "Validate" }, { "customFn", "var a = parseInt(this.value); return a > 0;" } })
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Page</h4>
+                    </div>
+                    <div class="modal-body">
 
+                        <form id="frmPages">
 
-                                     </div>
-                                     <label class="col-sm-2 col-md-2 control-label">PageName </label>
-                                     <div class="col-sm-4 col-md-4">
-                                         @Html.HiddenFor(model => model.PageID)
-                                         @Html.TextBoxFor(model => model.PageName, new { @class = "form-control", placeholder = "Page Name", validate = "Validate", require = "Please Enter Page Name" })
-                                     </div>
-                                 </div>
-                                       <div class="form-group">
-                                <label class="col-sm-2 col-md-2 control-label">Controller Name </label>
-                                <div class="col-sm-4 col-md-4">
-                                  @Html.TextBoxFor(model => model.Controller,new { @class = "form-control",placeholder = "Controller", validate = "Validate", require = "Please Enter Controller Name" })
+                            @* div start *@
+                            <div class="row">
+                                <div class="col-sm-2">
+                                    <label>Module Name</label>
                                 </div>
-                                <label class="col-sm-2 col-md-2 control-label">Page Url</label>
-                                <div class="col-sm-4 col-md-4">
-                                    @Html.TextBoxFor(model => model.PageUrl, new { @class = "form-control", placeholder = "Page Url", validate = "Validate", require = "Please Enter PageUrl " })
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        @Html.DropDownListFor(model => model.ModuleID, new SelectList(ViewBag.ModuleList, "ModuleID", "ModuleName"), "-- Please Select --", new Dictionary<string, Object> { { "class", "form-control" }, { "custom", "Please Select Module" }, { "validate", "Validate" }, { "customFn", "var a = parseInt(this.value); return a > 0;" } })
+                                    </div>
+
+                                </div>
+                                <div class="col-sm-2">
+                                    <label>PageName </label>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        @Html.HiddenFor(model => model.PageID)
+                                        @Html.TextBoxFor(model => model.PageName, new { @class = "form-control", placeholder = "Page Name", validate = "Validate", require = "Please Enter Page Name" })
+
+                                    </div>
                                 </div>
                             </div>
-                                 <div class="form-group">
-                                     <label class="col-sm-2 col-md-2 control-label">Page Order</label>
-                                     <div class="col-sm-4 col-md-4">
-                                         @Html.TextBoxFor(model => model.PageOrder, new { @class = "form-control", placeholder = "Page Order", validate = "Validate", require = "Please Enter Page Order " })
-                                     </div>
-                                     <label class="col-sm-2 col-md-2 control-label">Page Icon</label>
-                                     <div class="col-sm-4 col-md-4">
-@Html.TextBoxFor(model => model.PageIcon, new { @class = "form-control", placeholder = "Page Icon" })                                     </div>
-                                 </div>
-                                 <div class="form-group">
-                                     <div class="col-sm-offset-2 col-md-offset-2 col-sm-4 col-md-4">
-                                         <div class="checkbox">
-                                             <label>
-                                                 @Html.CheckBoxFor(model => model.IsActive) Active
-                                             </label>
-                                         </div>
-                                     </div>
-                                 </div>
+
+
+                            <div class="row">
+                                <div class="col-sm-2"><label>Controller Name </label></div>
+                                <div class="col-sm-4 col-md-4">
+                                    <div class="form-group">
+                                        @Html.TextBoxFor(model => model.Controller, new { @class = "form-control", placeholder = "Controller", validate = "Validate", require = "Please Enter Controller Name" })
+                                    </div>
+                                </div>
+                                <div class="col-sm-2"><label>Page Url</label></div>
+                                <div class="col-sm-4 col-md-4">
+                                    <div class="form-group">
+                                        @Html.TextBoxFor(model => model.PageUrl, new { @class = "form-control", placeholder = "Page Url", validate = "Validate", require = "Please Enter PageUrl " })
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-2"><label>Page Order </label></div>
+                                <div class="col-sm-4 col-md-4">
+                                    <div class="form-group">
+                                        @Html.TextBoxFor(model => model.PageOrder, new { @class = "form-control", placeholder = "Page Order", validate = "Validate", require = "Please Enter Page Order " })
+                                    </div>
+                                </div>
+                                <div class="col-sm-2"><label>Page Icon</label></div>
+                                <div class="col-sm-4 col-md-4">
+                                    <div class="form-group">
+                                        @Html.TextBoxFor(model => model.PageIcon, new { @class = "form-control", placeholder = "Page Icon" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-2"><label> Active  </label></div>
+                                <div class="col-sm-4 col-md-4">
+                                    <div class="form-group">
+                                        
+                 @Html.CheckBoxFor(model => model.IsActive) 
+                  
+                                   
+                                    </div>
+                                </div>
+
+                            </div>
+                            </form>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default btn-pure" id="btnClose" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" id="btnSave" onclick="return validate('Validate');">Save changes</button>
+                        @*<button type="button" id="btnSave" onclick="return validate('Validate');" class="btn btn-raised btn-success btn-sm">Save</button>
+            <button type="button" id="btnClose" class="btn btn-raised btn-danger btn-sm" data-dismiss="modal">Close</button>*@
+                    </div>
+
+                </div>
+
+                                
+                              
+
+                            
                              </div>
                              @* div *@
                     
 
-                             </form>
+                            
 
-                       
-                        </div> 
                   
-					<div class="modal-footer">
-                        <button type="button" class="btn btn-default btn-pure" id="btnClose" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary" id="btnSave" onclick="return validate('Validate');">Save changes</button>
-                        @*<button type="button" id="btnSave" onclick="return validate('Validate');" class="btn btn-raised btn-success btn-sm">Save</button>
-                        <button type="button" id="btnClose" class="btn btn-raised btn-danger btn-sm" data-dismiss="modal">Close</button>*@
-					</div>
-				</div>
-			 </div>
+
      
 
    

@@ -338,43 +338,61 @@
                     </li>
                     <li class="nav-item dropdown">
 @{
- 
-        
-                        <a class="nav-link navbar-avatar" data-toggle="dropdown" href="#" aria-expanded="false"
-                           data-animation="scale-up" role="button">
-                            @if (!CRM_Common.IsPathExist(Server.MapPath(sess.User.PicName)))
-                            {
-                            string userShortName = string.Empty;
-                            System.Text.RegularExpressions.Regex initials = new System.Text.RegularExpressions.Regex(@"(\b[a-zA-Z])[a-zA-Z]* ?");
-                            if (sess != null)
-                            {
+
+
+    <a class="nav-link navbar-avatar" data-toggle="dropdown" href="#" aria-expanded="false"
+       data-animation="scale-up" role="button">
+        <span class="avatar avatar-online">
+            @{
+                if (!string.IsNullOrEmpty(sess.User.PicName))
+                {
+                    if (!CRM_Common.IsPathExist(Server.MapPath(sess.User.PicName)))
+                    {
+                        string userShortName = string.Empty;
+                        System.Text.RegularExpressions.Regex initials = new System.Text.RegularExpressions.Regex(@"(\b[a-zA-Z])[a-zA-Z]* ?");
+                        if (sess != null)
+                        {
                             userShortName = initials.Replace(sess.User.FirstName + " " + sess.User.LastName, "$1").ToUpper();
                             userShortName = userShortName.Length > 1 ? userShortName.Substring(0, 2).ToString() : userShortName;
-                            <a class="dropdown-toggle" data-toggle="dropdown">
-                                <span class="0 size-30x30 avatar avatar-online">@userShortName</span>
-                            </a>
-                                }
-                            }
-                            else
-                            {
-                                <span class="avatar avatar-online">
 
-                                    <img src="@sess.User.PicName" alt="...">
-                                    <i></i>
-                                </span>
-                            }
-                          
-                        </a>
-                        <div class="dropdown-menu" role="menu">
-                            <a class="dropdown-item" href="javascript:void(0)" role="menuitem"><i class="icon md-account" aria-hidden="true"></i>@sess.User.FirstName @sess.User.LastName</a>
+                            <span class="name_initials"> @userShortName</span>
 
-                            <a class="dropdown-item" href="javascript:void(0)" role="menuitem"><i class="icon md-account" aria-hidden="true"></i> Profile</a>
-                            <a class="dropdown-item" href="javascript:void(0)" role="menuitem"><i class="icon md-card" aria-hidden="true"></i> Billing</a>
-                            <a class="dropdown-item" href="javascript:void(0)" role="menuitem"><i class="icon md-settings" aria-hidden="true"></i> Settings</a>
-                            <div class="dropdown-divider" role="presentation"></div>
-                            <a class="dropdown-item" href="javascript:void(0)" role="menuitem"><i class="icon md-power" aria-hidden="true"></i> Logout</a>
-                        </div>
-        }
+                        }
+                    }
+                    else
+                    {
+                        <a href class="dropdown-toggle" data-toggle="dropdown"> <img id="ImgLogoUser" src="@sess.User.PicName" alt="" class="0 size-30x30"></a>
+                    }
+                }
+                else
+                {
+                    string userShortName = string.Empty;
+                    System.Text.RegularExpressions.Regex initials = new System.Text.RegularExpressions.Regex(@"(\b[a-zA-Z])[a-zA-Z]* ?");
+                    if (sess != null)
+                    {
+                        userShortName = initials.Replace(sess.User.FirstName + " " + sess.User.LastName, "$1").ToUpper();
+                        userShortName = userShortName.Length > 1 ? userShortName.Substring(0, 2).ToString() : userShortName;
+                       
+                            <span class="avatar avatar-online">
+                                <span class="name_initials"> @userShortName</span>
+                                <i></i>
+                            </span>
+                     
+                    }
+                }
+            }
+            @*<img src="../../global/portraits/5.jpg" alt="...">*@
+            <i></i>
+        </span>
+    </a>
+            <div class="dropdown-menu" role="menu">
+                <a class="dropdown-item" href="javascript:void(0)" role="menuitem"><i class="icon md-account" aria-hidden="true"></i> @sess.User.FirstName @sess.User.LastName</a>
+                <a class="dropdown-item" href="javascript:void(0)" role="menuitem"><i class="icon md-card" aria-hidden="true"></i> Billing</a>
+                <a class="dropdown-item" href="javascript:void(0)" role="menuitem"><i class="icon md-settings" aria-hidden="true"></i> Settings</a>
+                <div class="dropdown-divider" role="presentation"></div>
+                <a class="dropdown-item" href="javascript:void(0)" role="menuitem"><i class="icon md-power" aria-hidden="true"></i> Logout</a>
+            </div>
+}
     
                     </li>
                     <li class="nav-item dropdown">
@@ -718,7 +736,7 @@
     </footer>
     <!-- Core  -->
     <script src="~/Content/global/vendor/babel-external-helpers/babel-external-helpers.js"></script>
-   
+   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.js"></script>
     <script src="~/Content/global/vendor/popper-js/umd/popper.min.js"></script>
     <script src="~/Content/global/vendor/bootstrap/bootstrap.js"></script>
     <script src="~/Content/global/vendor/animsition/animsition.js"></script>

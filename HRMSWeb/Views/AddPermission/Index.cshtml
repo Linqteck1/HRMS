@@ -1,51 +1,44 @@
-﻿@model IEnumerable<DAL.DBEntities.AT_Permission>
+﻿@model IEnumerable<HRMSWeb.Models.AT_Permission>
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@{ InstituteMS.Models.Session_CRM sess = (InstituteMS.Models.Session_CRM)HttpContext.Current.Session["Session_CRM"]; }
+@{ HRMSWeb.Models.Session_CRM sess = (HRMSWeb.Models.Session_CRM)HttpContext.Current.Session["Session_CRM"]; }
+<div class="page-content">
 
-<div class="page static-page-tables">
-    <div class="row">
-        <div class="col-md-12 text-right">
+    <div class="panel">
+
+
+        <header class="panel-heading">
+
+            <div class="panel-actions"></div>
+            <h3 class="panel-title">Basic</h3>
+            <div class="col-md-12 text-right">
+                @if (CRM_Common.CheckPermissions(PermissionEnum.ManagePermission, CRM_Common.GetControler(this.ViewContext)))
+            {
+                    <button type="button" id="0" class="AddUpdatePermission  btn btn-block btn-primary">Add Permission</button>
+
+                    @*<a class="AddUpdatePermission pull-right btn btn-raised btn-info btn-md" id="0"><i class="fa fa-plus mr-10"></i>Add Permission</a>*@
+                }
+            </div>
+        </header>
+        <div class="panel-body">
             @if (CRM_Common.CheckPermissions(PermissionEnum.ManagePermission, CRM_Common.GetControler(this.ViewContext)))
             {
-                <a class="AddUpdatePermission pull-right btn btn-raised btn-info btn-md" id="0"><i class="fa fa-plus mr-10"></i>Add Permission</a>
+                Html.RenderPartial("_Index");
             }
         </div>
     </div>
-    <!-- row -->
-    <div class="row">
-        <div class="col-md-12">
-            <section class="boxs ">
-                <!-- boxs header -->
-                <div class="boxs-header dvd dvd-btm">
-                    <h1 class="custom-font"><strong><i class="fa fa-users mr-10"> </i>Permission Information</strong></h1>
-                </div>
-                <div class="">
-                    <div class="row ">
-                        <div class="col-md-12" id="divPermission">
-                            @if (CRM_Common.CheckPermissions(PermissionEnum.ManagePermission, CRM_Common.GetControler(this.ViewContext)))
-                            {
-                                Html.RenderPartial("_Index");
-                            }
-                            <input type="hidden" id="lbmsg" value="@ViewBag.msg" />
 
-                        </div>
-                    </div>
-                </div>
-            </section>
 
-        </div>
-
+    <!-- Panel Basic -->
+  
     </div>
-
-</div>
-
-<div class="modal fade" id="PermissionModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-keyboard="false" data-backdrop="static"></div>
-
-<script>
+        @*<div class="modal fade" id="PermissionModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-keyboard="false" data-backdrop="static"></div>*@
+<div class="modal fade modal-primary" id="PermissionModal" aria-hidden="true" aria-labelledby="myModalLabel"
+     role="dialog" tabindex="-1"></div>
+        <script>
 
 
 
@@ -127,4 +120,4 @@
 
     });
 
-</script>
+        </script>

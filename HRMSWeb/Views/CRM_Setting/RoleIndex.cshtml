@@ -11,7 +11,9 @@
     </h1>
     @if (CRM_Common.CheckPermissions(PermissionEnum.ManageRoles, CRM_Common.GetControler(this.ViewContext)))
     {
-        <a class="AddUpdateRole btn btn-raised btn-info btn-sm m-0 pull-right" style="margin-top: 4px!important;" id="0"><i class="fa fa-plus mr-10"></i>Add Role</a>
+        <button type="button" id="0" class="AddUpdateRole  btn btn-block btn-primary">Add Role</button>
+
+        @*<a class="AddUpdateRole btn btn-raised btn-info btn-sm m-0 pull-right" style="margin-top: 4px!important;" id="0"><i class="fa fa-plus mr-10"></i>Add Role</a>*@
     }
 </div>
 
@@ -23,7 +25,9 @@
     }
     <input type="hidden" id="lbmsg" value="@ViewBag.msg" />
 </div>
-<div class="modal fade" id="RoleModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-keyboard="false" data-backdrop="static"></div>
+<div class="modal fade modal-primary" id="RoleModal" aria-hidden="true" aria-labelledby="myModalLabel"
+     role="dialog" tabindex="-1"></div>
+@*<div class="modal fade" id="RoleModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-keyboard="false" data-backdrop="static"></div>*@
 
 <script>
     $(document).ready(function () {

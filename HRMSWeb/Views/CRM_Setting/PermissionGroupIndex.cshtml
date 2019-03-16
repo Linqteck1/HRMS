@@ -7,44 +7,32 @@
 
 @{ HRMSWeb.Models.Session_CRM sess = (HRMSWeb.Models.Session_CRM)HttpContext.Current.Session["Session_CRM"]; }
 
-<section class="boxs ">
+
     <!-- boxs header -->
     <div class="boxs-header ">
         <h1 class="custom-font">
-            <strong><i class="fa fa-users mr-10"> </i> Permission Group</strong>
+            <strong> Permission Group</strong>
         </h1>
         @if (CRM_Common.CheckPermissions(PermissionEnum.ManageGroupPermission, CRM_Common.GetControler(this.ViewContext)))
 {
-    <a class="AddUpdateGroup btn btn-raised btn-info btn-sm m-0 pull-right" style="margin-top: 4px!important;" id="0"><i class="fa fa-plus mr-10"></i>Add Group</a>
-}
+    @*<a class="AddUpdateGroup btn btn-raised btn-info btn-sm m-0 pull-right" style="margin-top: 4px!important;" id="0"><i class="fa fa-plus mr-10"></i>Add Group</a>*@
+    <button type="button" id="0" class="AddUpdateGroup  btn btn-block btn-primary">Add Group</button>
+
+        }
     </div>
+<br />
+<div class="col-md-12" id="divGroup">
+    @if (CRM_Common.CheckPermissions(PermissionEnum.ManageGroupPermission, CRM_Common.GetControler(this.ViewContext)))
+    {
+        Html.RenderPartial("_PermissionGroupIndex");
+    }
+    <input type="hidden" id="lbmsg" value="@ViewBag.msg" />
+</div>
 
-    <div class="boxs-body">
-        <div class="page static-page-tables">
-            <!-- row -->
-            <div class="row">
-                <div class="col-md-12">
-                    <section class="boxs ">
-                        <div class="row ">
-                            <div class="col-md-12" id="divGroup">
-@if (CRM_Common.CheckPermissions(PermissionEnum.ManageGroupPermission, CRM_Common.GetControler(this.ViewContext)))
-                    {
-                                Html.RenderPartial("_PermissionGroupIndex");
-}
-                                <input type="hidden" id="lbmsg" value="@ViewBag.msg" />
-                            </div>
-                        </div>
-                    </section>
 
-                </div>
-
-            </div>
-
-        </div>
-    </div>
-</section>
-
-<div class="modal fade" id="GroupModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-keyboard="false" data-backdrop="static"></div>
+<div class="modal fade modal-primary" id="GroupModal" aria-hidden="true" aria-labelledby="myModalLabel"
+     role="dialog" tabindex="-1"></div>
+@*<div class="modal fade" id="GroupModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-keyboard="false" data-backdrop="static"></div>*@
 
 <script>
 

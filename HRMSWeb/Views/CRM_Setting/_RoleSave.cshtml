@@ -36,9 +36,11 @@
         <div class="modal-footer">
             @if (CRM_Common.CheckPermissions(PermissionEnum.ManageRoles, CRM_Common.GetControler(this.ViewContext)))
             {
-            <button type="button" id="btnRoleSave" class="btn btn-raised btn-success btn-sm">Save</button>
+            @*<button type="button" id="btnRoleSave" class="btn btn-raised btn-success btn-sm">Save</button>*@
+            <button type="button" class="btn btn-default btn-pure" id="btnClose" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" id="btnRoleSave">Save</button>
             }
-            <button type="button" id="btnClose" class="btn btn-raised btn-danger btn-sm" data-dismiss="modal">Close</button>
+            @*<button type="button" id="btnClose" class="btn btn-raised btn-danger btn-sm" data-dismiss="modal">Close</button>*@
         </div>
     </div>
 </div>
