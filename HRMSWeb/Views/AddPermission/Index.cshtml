@@ -87,7 +87,9 @@
                     $('#divPermission').html(data);
                     var msg = $('#divPermission').find('#lbmsg').val();
                     if (msg == "Permission saved successfully!") {
-                        showStatusMsgPopup("1", msg);
+                        toastr.success("Save","Role",Option)
+                        
+                     //   showStatusMsgPopup("1", msg);
                     }
                     else
                     {

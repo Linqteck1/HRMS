@@ -53,4 +53,6 @@ public class PermissionEnum
     public const string Unknown = "Unknown";
     
     public const string DashboardPer = "DashboardPer";
+    
+    public const string MBranch = "MBranch";
 }

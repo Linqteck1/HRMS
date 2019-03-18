@@ -1,5 +1,67 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="HRMSModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="HRMSEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="AT_Client" EntityType="HRMSModel.AT_Client" />
+    <EntitySet Name="AT_Modules" EntityType="HRMSModel.AT_Modules" />
+    <EntitySet Name="AT_Pages" EntityType="HRMSModel.AT_Pages" />
+    <EntitySet Name="AT_Permission" EntityType="HRMSModel.AT_Permission" />
+    <EntitySet Name="AT_PermissionActionJunc" EntityType="HRMSModel.AT_PermissionActionJunc" />
+    <EntitySet Name="AT_PermissionGroup" EntityType="HRMSModel.AT_PermissionGroup" />
+    <EntitySet Name="AT_PermissionGroupJunc" EntityType="HRMSModel.AT_PermissionGroupJunc" />
+    <EntitySet Name="AT_Role" EntityType="HRMSModel.AT_Role" />
+    <EntitySet Name="AT_RolePermissionJunc" EntityType="HRMSModel.AT_RolePermissionJunc" />
+    <EntitySet Name="AT_UserExtraPermissionjunc" EntityType="HRMSModel.AT_UserExtraPermissionjunc" />
+    <EntitySet Name="AT_Users" EntityType="HRMSModel.AT_Users" />
+    <EntitySet Name="Benefits" EntityType="HRMSModel.Benefit" />
+    <EntitySet Name="Branches" EntityType="HRMSModel.Branch" />
+    <EntitySet Name="Departments" EntityType="HRMSModel.Department" />
+    <EntitySet Name="Designations" EntityType="HRMSModel.Designation" />
+    <EntitySet Name="LeaveTypes" EntityType="HRMSModel.LeaveType" />
+    <EntitySet Name="Promotions" EntityType="HRMSModel.Promotion" />
+    <EntitySet Name="Resigns" EntityType="HRMSModel.Resign" />
+    <EntitySet Name="Shifts" EntityType="HRMSModel.Shift" />
+    <EntitySet Name="sysdiagrams" EntityType="HRMSModel.sysdiagram" />
+    <AssociationSet Name="FK_vt_Pages_vt_Modules" Association="HRMSModel.FK_vt_Pages_vt_Modules">
+      <End Role="AT_Modules" EntitySet="AT_Modules" />
+      <End Role="AT_Pages" EntitySet="AT_Pages" />
+    </AssociationSet>
+    <AssociationSet Name="FK_vt_Permission_vt_Pages" Association="HRMSModel.FK_vt_Permission_vt_Pages">
+      <End Role="AT_Pages" EntitySet="AT_Pages" />
+      <End Role="AT_Permission" EntitySet="AT_Permission" />
+    </AssociationSet>
+    <AssociationSet Name="FK_vt_PermissionActionJunc_vt_Permission" Association="HRMSModel.FK_vt_PermissionActionJunc_vt_Permission">
+      <End Role="AT_Permission" EntitySet="AT_Permission" />
+      <End Role="AT_PermissionActionJunc" EntitySet="AT_PermissionActionJunc" />
+    </AssociationSet>
+    <AssociationSet Name="FK_vt_PermissionGroupJunc_vt_Permission" Association="HRMSModel.FK_vt_PermissionGroupJunc_vt_Permission">
+      <End Role="AT_Permission" EntitySet="AT_Permission" />
+      <End Role="AT_PermissionGroupJunc" EntitySet="AT_PermissionGroupJunc" />
+    </AssociationSet>
+    <AssociationSet Name="FK_vt_PermissionGroupJunc_vt_PermissionGroup" Association="HRMSModel.FK_vt_PermissionGroupJunc_vt_PermissionGroup">
+      <End Role="AT_PermissionGroup" EntitySet="AT_PermissionGroup" />
+      <End Role="AT_PermissionGroupJunc" EntitySet="AT_PermissionGroupJunc" />
+    </AssociationSet>
+    <AssociationSet Name="FK_vt_UserExtraPermissionjunc_vt_PermissionGroup" Association="HRMSModel.FK_vt_UserExtraPermissionjunc_vt_PermissionGroup">
+      <End Role="AT_PermissionGroup" EntitySet="AT_PermissionGroup" />
+      <End Role="AT_UserExtraPermissionjunc" EntitySet="AT_UserExtraPermissionjunc" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AT_Users_AT_Role" Association="HRMSModel.FK_AT_Users_AT_Role">
+      <End Role="AT_Role" EntitySet="AT_Role" />
+      <End Role="AT_Users" EntitySet="AT_Users" />
+    </AssociationSet>
+    <AssociationSet Name="FK_vt_RolePermissionJunc_vt_Role" Association="HRMSModel.FK_vt_RolePermissionJunc_vt_Role">
+      <End Role="AT_Role" EntitySet="AT_Role" />
+      <End Role="AT_RolePermissionJunc" EntitySet="AT_RolePermissionJunc" />
+    </AssociationSet>
+    <AssociationSet Name="FK_vt_UserExtraPermissionjunc_vt_Users" Association="HRMSModel.FK_vt_UserExtraPermissionjunc_vt_Users">
+      <End Role="AT_Users" EntitySet="AT_Users" />
+      <End Role="AT_UserExtraPermissionjunc" EntitySet="AT_UserExtraPermissionjunc" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Promotion_Designation" Association="HRMSModel.FK_Promotion_Designation">
+      <End Role="Designation" EntitySet="Designations" />
+      <End Role="Promotion" EntitySet="Promotions" />
+    </AssociationSet>
+  </EntityContainer>
   <EntityType Name="AT_Client">
     <Key>
       <PropertyRef Name="ClientID" />
@@ -20,7 +82,7 @@
     <Property Name="ModuleOrder" Type="Int32" />
     <Property Name="ModuleIcon" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="ParentID" Type="Int32" />
-    <NavigationProperty Name="AT_Pages" Relationship="Self.FK_vt_Pages_vt_Modules" FromRole="AT_Modules" ToRole="AT_Pages" />
+    <NavigationProperty Name="AT_Pages" Relationship="HRMSModel.FK_vt_Pages_vt_Modules" FromRole="AT_Modules" ToRole="AT_Pages" />
   </EntityType>
   <EntityType Name="AT_Pages">
     <Key>
@@ -35,8 +97,8 @@
     <Property Name="PageIcon" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="ShowOnMenu" Type="Boolean" Nullable="false" />
     <Property Name="Controller" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <NavigationProperty Name="AT_Modules" Relationship="Self.FK_vt_Pages_vt_Modules" FromRole="AT_Pages" ToRole="AT_Modules" />
-    <NavigationProperty Name="AT_Permission" Relationship="Self.FK_vt_Permission_vt_Pages" FromRole="AT_Pages" ToRole="AT_Permission" />
+    <NavigationProperty Name="AT_Modules" Relationship="HRMSModel.FK_vt_Pages_vt_Modules" FromRole="AT_Pages" ToRole="AT_Modules" />
+    <NavigationProperty Name="AT_Permission" Relationship="HRMSModel.FK_vt_Permission_vt_Pages" FromRole="AT_Pages" ToRole="AT_Permission" />
   </EntityType>
   <EntityType Name="AT_Permission">
     <Key>
@@ -44,11 +106,11 @@
     </Key>
     <Property Name="PermissionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="PageID" Type="Int32" Nullable="false" />
-    <Property Name="Permission" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Permission" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
     <Property Name="IsActive" Type="Boolean" Nullable="false" />
-    <NavigationProperty Name="AT_Pages" Relationship="Self.FK_vt_Permission_vt_Pages" FromRole="AT_Permission" ToRole="AT_Pages" />
-    <NavigationProperty Name="AT_PermissionActionJunc" Relationship="Self.FK_vt_PermissionActionJunc_vt_Permission" FromRole="AT_Permission" ToRole="AT_PermissionActionJunc" />
-    <NavigationProperty Name="AT_PermissionGroupJunc" Relationship="Self.FK_vt_PermissionGroupJunc_vt_Permission" FromRole="AT_Permission" ToRole="AT_PermissionGroupJunc" />
+    <NavigationProperty Name="AT_Pages" Relationship="HRMSModel.FK_vt_Permission_vt_Pages" FromRole="AT_Permission" ToRole="AT_Pages" />
+    <NavigationProperty Name="AT_PermissionActionJunc" Relationship="HRMSModel.FK_vt_PermissionActionJunc_vt_Permission" FromRole="AT_Permission" ToRole="AT_PermissionActionJunc" />
+    <NavigationProperty Name="AT_PermissionGroupJunc" Relationship="HRMSModel.FK_vt_PermissionGroupJunc_vt_Permission" FromRole="AT_Permission" ToRole="AT_PermissionGroupJunc" />
   </EntityType>
   <EntityType Name="AT_PermissionActionJunc">
     <Key>
@@ -56,15 +118,15 @@
     </Key>
     <Property Name="PermissionActionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="PermissionID" Type="Int32" Nullable="false" />
-    <Property Name="Action" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-    <NavigationProperty Name="AT_Permission" Relationship="Self.FK_vt_PermissionActionJunc_vt_Permission" FromRole="AT_PermissionActionJunc" ToRole="AT_Permission" />
+    <Property Name="Action" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="AT_Permission" Relationship="HRMSModel.FK_vt_PermissionActionJunc_vt_Permission" FromRole="AT_PermissionActionJunc" ToRole="AT_Permission" />
   </EntityType>
   <EntityType Name="AT_PermissionGroup">
     <Key>
       <PropertyRef Name="PermissionGroupID" />
     </Key>
     <Property Name="PermissionGroupID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
     <Property Name="IsActive" Type="Boolean" Nullable="false" />
     <Property Name="ClientID" Type="Int32" Nullable="false" />
     <Property Name="IsExtrapermission" Type="Boolean" Nullable="false" />
@@ -72,8 +134,8 @@
     <Property Name="CreateBy" Type="Int32" />
     <Property Name="UpdateDate" Type="DateTime" Precision="3" />
     <Property Name="UpdateBy" Type="Int32" />
-    <NavigationProperty Name="AT_PermissionGroupJunc" Relationship="Self.FK_vt_PermissionGroupJunc_vt_PermissionGroup" FromRole="AT_PermissionGroup" ToRole="AT_PermissionGroupJunc" />
-    <NavigationProperty Name="AT_UserExtraPermissionjunc" Relationship="Self.FK_vt_UserExtraPermissionjunc_vt_PermissionGroup" FromRole="AT_PermissionGroup" ToRole="AT_UserExtraPermissionjunc" />
+    <NavigationProperty Name="AT_PermissionGroupJunc" Relationship="HRMSModel.FK_vt_PermissionGroupJunc_vt_PermissionGroup" FromRole="AT_PermissionGroup" ToRole="AT_PermissionGroupJunc" />
+    <NavigationProperty Name="AT_UserExtraPermissionjunc" Relationship="HRMSModel.FK_vt_UserExtraPermissionjunc_vt_PermissionGroup" FromRole="AT_PermissionGroup" ToRole="AT_UserExtraPermissionjunc" />
   </EntityType>
   <EntityType Name="AT_PermissionGroupJunc">
     <Key>
@@ -83,8 +145,8 @@
     <Property Name="PermissionID" Type="Int32" Nullable="false" />
     <Property Name="PermissionGroupID" Type="Int32" Nullable="false" />
     <Property Name="ClientID" Type="Int32" Nullable="false" />
-    <NavigationProperty Name="AT_Permission" Relationship="Self.FK_vt_PermissionGroupJunc_vt_Permission" FromRole="AT_PermissionGroupJunc" ToRole="AT_Permission" />
-    <NavigationProperty Name="AT_PermissionGroup" Relationship="Self.FK_vt_PermissionGroupJunc_vt_PermissionGroup" FromRole="AT_PermissionGroupJunc" ToRole="AT_PermissionGroup" />
+    <NavigationProperty Name="AT_Permission" Relationship="HRMSModel.FK_vt_PermissionGroupJunc_vt_Permission" FromRole="AT_PermissionGroupJunc" ToRole="AT_Permission" />
+    <NavigationProperty Name="AT_PermissionGroup" Relationship="HRMSModel.FK_vt_PermissionGroupJunc_vt_PermissionGroup" FromRole="AT_PermissionGroupJunc" ToRole="AT_PermissionGroup" />
   </EntityType>
   <EntityType Name="AT_Role">
     <Key>
@@ -92,15 +154,15 @@
     </Key>
     <Property Name="RoleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="ClientID" Type="Int32" />
-    <Property Name="RoleName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="RoleName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
     <Property Name="IsActive" Type="Boolean" Nullable="false" />
     <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
     <Property Name="CreateBy" Type="Int32" />
     <Property Name="CreateDate" Type="DateTime" Precision="3" />
     <Property Name="UpdateBy" Type="Int32" />
     <Property Name="UpdateDate" Type="DateTime" Precision="3" />
-    <NavigationProperty Name="AT_Users" Relationship="Self.FK_AT_Users_AT_Role" FromRole="AT_Role" ToRole="AT_Users" />
-    <NavigationProperty Name="AT_RolePermissionJunc" Relationship="Self.FK_vt_RolePermissionJunc_vt_Role" FromRole="AT_Role" ToRole="AT_RolePermissionJunc" />
+    <NavigationProperty Name="AT_Users" Relationship="HRMSModel.FK_AT_Users_AT_Role" FromRole="AT_Role" ToRole="AT_Users" />
+    <NavigationProperty Name="AT_RolePermissionJunc" Relationship="HRMSModel.FK_vt_RolePermissionJunc_vt_Role" FromRole="AT_Role" ToRole="AT_RolePermissionJunc" />
   </EntityType>
   <EntityType Name="AT_RolePermissionJunc">
     <Key>
@@ -111,7 +173,7 @@
     <Property Name="RoleID" Type="Int32" Nullable="false" />
     <Property Name="IsGroup" Type="Boolean" Nullable="false" />
     <Property Name="ClientID" Type="Int32" Nullable="false" />
-    <NavigationProperty Name="AT_Role" Relationship="Self.FK_vt_RolePermissionJunc_vt_Role" FromRole="AT_RolePermissionJunc" ToRole="AT_Role" />
+    <NavigationProperty Name="AT_Role" Relationship="HRMSModel.FK_vt_RolePermissionJunc_vt_Role" FromRole="AT_RolePermissionJunc" ToRole="AT_Role" />
   </EntityType>
   <EntityType Name="AT_UserExtraPermissionjunc">
     <Key>
@@ -121,8 +183,8 @@
     <Property Name="ClientID" Type="Int32" Nullable="false" />
     <Property Name="UserID" Type="Int32" Nullable="false" />
     <Property Name="PermissionGroupID" Type="Int32" Nullable="false" />
-    <NavigationProperty Name="AT_PermissionGroup" Relationship="Self.FK_vt_UserExtraPermissionjunc_vt_PermissionGroup" FromRole="AT_UserExtraPermissionjunc" ToRole="AT_PermissionGroup" />
-    <NavigationProperty Name="AT_Users" Relationship="Self.FK_vt_UserExtraPermissionjunc_vt_Users" FromRole="AT_UserExtraPermissionjunc" ToRole="AT_Users" />
+    <NavigationProperty Name="AT_PermissionGroup" Relationship="HRMSModel.FK_vt_UserExtraPermissionjunc_vt_PermissionGroup" FromRole="AT_UserExtraPermissionjunc" ToRole="AT_PermissionGroup" />
+    <NavigationProperty Name="AT_Users" Relationship="HRMSModel.FK_vt_UserExtraPermissionjunc_vt_Users" FromRole="AT_UserExtraPermissionjunc" ToRole="AT_Users" />
   </EntityType>
   <EntityType Name="AT_Users">
     <Key>
@@ -145,8 +207,8 @@
     <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
     <Property Name="DeleteBy" Type="Int32" />
     <Property Name="DeleteDate" Type="DateTime" Precision="3" />
-    <NavigationProperty Name="AT_Role" Relationship="Self.FK_AT_Users_AT_Role" FromRole="AT_Users" ToRole="AT_Role" />
-    <NavigationProperty Name="AT_UserExtraPermissionjunc" Relationship="Self.FK_vt_UserExtraPermissionjunc_vt_Users" FromRole="AT_Users" ToRole="AT_UserExtraPermissionjunc" />
+    <NavigationProperty Name="AT_Role" Relationship="HRMSModel.FK_AT_Users_AT_Role" FromRole="AT_Users" ToRole="AT_Role" />
+    <NavigationProperty Name="AT_UserExtraPermissionjunc" Relationship="HRMSModel.FK_vt_UserExtraPermissionjunc_vt_Users" FromRole="AT_Users" ToRole="AT_UserExtraPermissionjunc" />
   </EntityType>
   <EntityType Name="Benefit">
     <Key>
@@ -161,6 +223,11 @@
     </Key>
     <Property Name="BranchID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="IsActive" Type="Boolean" />
+    <Property Name="CreatedBy" Type="Int32" />
+    <Property Name="CreateDate" Type="DateTime" Precision="3" />
+    <Property Name="UpdateBy" Type="Int32" />
+    <Property Name="UpdateDate" Type="DateTime" Precision="3" />
   </EntityType>
   <EntityType Name="Department">
     <Key>
@@ -175,7 +242,7 @@
     </Key>
     <Property Name="DesignationID" Type="Int32" Nullable="false" />
     <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <NavigationProperty Name="Promotions" Relationship="Self.FK_Promotion_Designation" FromRole="Designation" ToRole="Promotion" />
+    <NavigationProperty Name="Promotions" Relationship="HRMSModel.FK_Promotion_Designation" FromRole="Designation" ToRole="Promotion" />
   </EntityType>
   <EntityType Name="LeaveType">
     <Key>
@@ -192,7 +259,7 @@
     <Property Name="PromotionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="EmployeeID" Type="Int32" />
     <Property Name="DesignationID" Type="Int32" />
-    <NavigationProperty Name="Designation" Relationship="Self.FK_Promotion_Designation" FromRole="Promotion" ToRole="Designation" />
+    <NavigationProperty Name="Designation" Relationship="HRMSModel.FK_Promotion_Designation" FromRole="Promotion" ToRole="Designation" />
   </EntityType>
   <EntityType Name="Resign">
     <Key>
@@ -216,15 +283,15 @@
     <Key>
       <PropertyRef Name="diagram_id" />
     </Key>
-    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
     <Property Name="principal_id" Type="Int32" Nullable="false" />
     <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="version" Type="Int32" />
     <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
   </EntityType>
   <Association Name="FK_vt_Pages_vt_Modules">
-    <End Role="AT_Modules" Type="Self.AT_Modules" Multiplicity="1" />
-    <End Role="AT_Pages" Type="Self.AT_Pages" Multiplicity="*" />
+    <End Type="HRMSModel.AT_Modules" Role="AT_Modules" Multiplicity="1" />
+    <End Type="HRMSModel.AT_Pages" Role="AT_Pages" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="AT_Modules">
         <PropertyRef Name="ModuleID" />
@@ -235,8 +302,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_vt_Permission_vt_Pages">
-    <End Role="AT_Pages" Type="Self.AT_Pages" Multiplicity="1" />
-    <End Role="AT_Permission" Type="Self.AT_Permission" Multiplicity="*" />
+    <End Type="HRMSModel.AT_Pages" Role="AT_Pages" Multiplicity="1" />
+    <End Type="HRMSModel.AT_Permission" Role="AT_Permission" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="AT_Pages">
         <PropertyRef Name="PageID" />
@@ -247,8 +314,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_vt_PermissionActionJunc_vt_Permission">
-    <End Role="AT_Permission" Type="Self.AT_Permission" Multiplicity="1" />
-    <End Role="AT_PermissionActionJunc" Type="Self.AT_PermissionActionJunc" Multiplicity="*" />
+    <End Type="HRMSModel.AT_Permission" Role="AT_Permission" Multiplicity="1" />
+    <End Type="HRMSModel.AT_PermissionActionJunc" Role="AT_PermissionActionJunc" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="AT_Permission">
         <PropertyRef Name="PermissionID" />
@@ -259,8 +326,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_vt_PermissionGroupJunc_vt_Permission">
-    <End Role="AT_Permission" Type="Self.AT_Permission" Multiplicity="1" />
-    <End Role="AT_PermissionGroupJunc" Type="Self.AT_PermissionGroupJunc" Multiplicity="*" />
+    <End Type="HRMSModel.AT_Permission" Role="AT_Permission" Multiplicity="1" />
+    <End Type="HRMSModel.AT_PermissionGroupJunc" Role="AT_PermissionGroupJunc" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="AT_Permission">
         <PropertyRef Name="PermissionID" />
@@ -271,8 +338,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_vt_PermissionGroupJunc_vt_PermissionGroup">
-    <End Role="AT_PermissionGroup" Type="Self.AT_PermissionGroup" Multiplicity="1" />
-    <End Role="AT_PermissionGroupJunc" Type="Self.AT_PermissionGroupJunc" Multiplicity="*" />
+    <End Type="HRMSModel.AT_PermissionGroup" Role="AT_PermissionGroup" Multiplicity="1" />
+    <End Type="HRMSModel.AT_PermissionGroupJunc" Role="AT_PermissionGroupJunc" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="AT_PermissionGroup">
         <PropertyRef Name="PermissionGroupID" />
@@ -283,8 +350,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_vt_UserExtraPermissionjunc_vt_PermissionGroup">
-    <End Role="AT_PermissionGroup" Type="Self.AT_PermissionGroup" Multiplicity="1" />
-    <End Role="AT_UserExtraPermissionjunc" Type="Self.AT_UserExtraPermissionjunc" Multiplicity="*" />
+    <End Type="HRMSModel.AT_PermissionGroup" Role="AT_PermissionGroup" Multiplicity="1" />
+    <End Type="HRMSModel.AT_UserExtraPermissionjunc" Role="AT_UserExtraPermissionjunc" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="AT_PermissionGroup">
         <PropertyRef Name="PermissionGroupID" />
@@ -295,8 +362,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_AT_Users_AT_Role">
-    <End Role="AT_Role" Type="Self.AT_Role" Multiplicity="0..1" />
-    <End Role="AT_Users" Type="Self.AT_Users" Multiplicity="*" />
+    <End Type="HRMSModel.AT_Role" Role="AT_Role" Multiplicity="0..1" />
+    <End Type="HRMSModel.AT_Users" Role="AT_Users" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="AT_Role">
         <PropertyRef Name="RoleID" />
@@ -307,8 +374,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_vt_RolePermissionJunc_vt_Role">
-    <End Role="AT_Role" Type="Self.AT_Role" Multiplicity="1" />
-    <End Role="AT_RolePermissionJunc" Type="Self.AT_RolePermissionJunc" Multiplicity="*" />
+    <End Type="HRMSModel.AT_Role" Role="AT_Role" Multiplicity="1" />
+    <End Type="HRMSModel.AT_RolePermissionJunc" Role="AT_RolePermissionJunc" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="AT_Role">
         <PropertyRef Name="RoleID" />
@@ -319,10 +386,10 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_vt_UserExtraPermissionjunc_vt_Users">
-    <End Role="AT_Users" Type="Self.AT_Users" Multiplicity="1">
+    <End Type="HRMSModel.AT_Users" Role="AT_Users" Multiplicity="1">
       <OnDelete Action="Cascade" />
     </End>
-    <End Role="AT_UserExtraPermissionjunc" Type="Self.AT_UserExtraPermissionjunc" Multiplicity="*" />
+    <End Type="HRMSModel.AT_UserExtraPermissionjunc" Role="AT_UserExtraPermissionjunc" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="AT_Users">
         <PropertyRef Name="UserID" />
@@ -333,8 +400,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_Promotion_Designation">
-    <End Role="Designation" Type="Self.Designation" Multiplicity="0..1" />
-    <End Role="Promotion" Type="Self.Promotion" Multiplicity="*" />
+    <End Type="HRMSModel.Designation" Role="Designation" Multiplicity="0..1" />
+    <End Type="HRMSModel.Promotion" Role="Promotion" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Designation">
         <PropertyRef Name="DesignationID" />
@@ -344,66 +411,4 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <EntityContainer Name="HRMSEntities" annotation:LazyLoadingEnabled="true">
-    <EntitySet Name="AT_Client" EntityType="Self.AT_Client" />
-    <EntitySet Name="AT_Modules" EntityType="Self.AT_Modules" />
-    <EntitySet Name="AT_Pages" EntityType="Self.AT_Pages" />
-    <EntitySet Name="AT_Permission" EntityType="Self.AT_Permission" />
-    <EntitySet Name="AT_PermissionActionJunc" EntityType="Self.AT_PermissionActionJunc" />
-    <EntitySet Name="AT_PermissionGroup" EntityType="Self.AT_PermissionGroup" />
-    <EntitySet Name="AT_PermissionGroupJunc" EntityType="Self.AT_PermissionGroupJunc" />
-    <EntitySet Name="AT_Role" EntityType="Self.AT_Role" />
-    <EntitySet Name="AT_RolePermissionJunc" EntityType="Self.AT_RolePermissionJunc" />
-    <EntitySet Name="AT_UserExtraPermissionjunc" EntityType="Self.AT_UserExtraPermissionjunc" />
-    <EntitySet Name="AT_Users" EntityType="Self.AT_Users" />
-    <EntitySet Name="Benefits" EntityType="Self.Benefit" />
-    <EntitySet Name="Branches" EntityType="Self.Branch" />
-    <EntitySet Name="Departments" EntityType="Self.Department" />
-    <EntitySet Name="Designations" EntityType="Self.Designation" />
-    <EntitySet Name="LeaveTypes" EntityType="Self.LeaveType" />
-    <EntitySet Name="Promotions" EntityType="Self.Promotion" />
-    <EntitySet Name="Resigns" EntityType="Self.Resign" />
-    <EntitySet Name="Shifts" EntityType="Self.Shift" />
-    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
-    <AssociationSet Name="FK_vt_Pages_vt_Modules" Association="Self.FK_vt_Pages_vt_Modules">
-      <End Role="AT_Modules" EntitySet="AT_Modules" />
-      <End Role="AT_Pages" EntitySet="AT_Pages" />
-    </AssociationSet>
-    <AssociationSet Name="FK_vt_Permission_vt_Pages" Association="Self.FK_vt_Permission_vt_Pages">
-      <End Role="AT_Pages" EntitySet="AT_Pages" />
-      <End Role="AT_Permission" EntitySet="AT_Permission" />
-    </AssociationSet>
-    <AssociationSet Name="FK_vt_PermissionActionJunc_vt_Permission" Association="Self.FK_vt_PermissionActionJunc_vt_Permission">
-      <End Role="AT_Permission" EntitySet="AT_Permission" />
-      <End Role="AT_PermissionActionJunc" EntitySet="AT_PermissionActionJunc" />
-    </AssociationSet>
-    <AssociationSet Name="FK_vt_PermissionGroupJunc_vt_Permission" Association="Self.FK_vt_PermissionGroupJunc_vt_Permission">
-      <End Role="AT_Permission" EntitySet="AT_Permission" />
-      <End Role="AT_PermissionGroupJunc" EntitySet="AT_PermissionGroupJunc" />
-    </AssociationSet>
-    <AssociationSet Name="FK_vt_PermissionGroupJunc_vt_PermissionGroup" Association="Self.FK_vt_PermissionGroupJunc_vt_PermissionGroup">
-      <End Role="AT_PermissionGroup" EntitySet="AT_PermissionGroup" />
-      <End Role="AT_PermissionGroupJunc" EntitySet="AT_PermissionGroupJunc" />
-    </AssociationSet>
-    <AssociationSet Name="FK_vt_UserExtraPermissionjunc_vt_PermissionGroup" Association="Self.FK_vt_UserExtraPermissionjunc_vt_PermissionGroup">
-      <End Role="AT_PermissionGroup" EntitySet="AT_PermissionGroup" />
-      <End Role="AT_UserExtraPermissionjunc" EntitySet="AT_UserExtraPermissionjunc" />
-    </AssociationSet>
-    <AssociationSet Name="FK_AT_Users_AT_Role" Association="Self.FK_AT_Users_AT_Role">
-      <End Role="AT_Role" EntitySet="AT_Role" />
-      <End Role="AT_Users" EntitySet="AT_Users" />
-    </AssociationSet>
-    <AssociationSet Name="FK_vt_RolePermissionJunc_vt_Role" Association="Self.FK_vt_RolePermissionJunc_vt_Role">
-      <End Role="AT_Role" EntitySet="AT_Role" />
-      <End Role="AT_RolePermissionJunc" EntitySet="AT_RolePermissionJunc" />
-    </AssociationSet>
-    <AssociationSet Name="FK_vt_UserExtraPermissionjunc_vt_Users" Association="Self.FK_vt_UserExtraPermissionjunc_vt_Users">
-      <End Role="AT_Users" EntitySet="AT_Users" />
-      <End Role="AT_UserExtraPermissionjunc" EntitySet="AT_UserExtraPermissionjunc" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Promotion_Designation" Association="Self.FK_Promotion_Designation">
-      <End Role="Designation" EntitySet="Designations" />
-      <End Role="Promotion" EntitySet="Promotions" />
-    </AssociationSet>
-  </EntityContainer>
 </Schema>

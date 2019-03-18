@@ -160,6 +160,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AddPagesController.cs" />
     <Compile Include="Controllers\AddPermissionController.cs" />
+    <Compile Include="Controllers\BranchController.cs" />
     <Compile Include="Controllers\CRM_SettingController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -6223,6 +6224,7 @@
     <Content Include="Content\global\vendor\toastr\toastr.js.map" />
     <Content Include="Content\global\vendor\waves\waves.min.js.map" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\HRMS_Dev.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -6271,6 +6273,9 @@
     <Content Include="Views\CRM_Setting\_PermissionGroupSave.cshtml" />
     <Content Include="Views\CRM_Setting\_RoleIndex.cshtml" />
     <Content Include="Views\CRM_Setting\_RoleSave.cshtml" />
+    <Content Include="Views\Branch\_Index.cshtml" />
+    <Content Include="Views\Branch\_New.cshtml" />
+    <Content Include="Views\Branch\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,0 +1,49 @@
+﻿
+@model IEnumerable<HRMSWeb.Models.Branch>
+
+<input type="hidden" id="lbmsg" value="@ViewBag.msg" />
+
+@{ HRMSWeb.Models.Session_CRM sess = (HRMSWeb.Models.Session_CRM)HttpContext.Current.Session["Session_CRM"]; }
+<div class="table-responsive">
+    <table class="table table-hover dataTable table-striped w-full" data-plugin="dataTable" id="tblbranch">
+        <thead>
+            <tr>
+                <th>Branch Name</th>
+               
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    
+                    <td>@Html.DisplayFor(a => item.Name)</td>
+                    <td>
+                        @if (CRM_Common.CheckPermissions(PermissionEnum.MBranch, CRM_Common.GetControler(this.ViewContext)))
+                        {
+                            <button type="button" class="btnAddUpdateBranch btn btn-icon btn-primary" id="@CRM_Common.Encrypt(item.BranchID.ToString())" title="View" actionfor="View"><i class="fa fa-eye" aria-hidden="true"></i></button>
+
+                            @*<button class="btnAddUpdateStudent btn btn-raised btn-info btn-sm" _id="@CRM_Common.Encrypt(item.StudentID.ToString())" title="View" actionfor="View"><i class="fa fa-eye"></i></button>*@
+                        }
+                        @if (CRM_Common.CheckPermissions(PermissionEnum.MBranch, CRM_Common.GetControler(this.ViewContext)))
+                        {
+                            <button type="button" class="btnAddUpdateBranch btn btn-icon btn-primary" id="@CRM_Common.Encrypt(item.BranchID.ToString())" title="Edit" actionfor="Edit"><i class="fa fa-edit" aria-hidden="true"></i></button>
+
+                            @*<button class="btnAddUpdateStudent btn btn-raised btn-info btn-sm" _id="@CRM_Common.Encrypt(item.StudentID.ToString())" title="Edit" actionfor="Edit"><i class="fa fa-edit"></i></button>*@
+
+                        }
+                        @if (CRM_Common.CheckPermissions(PermissionEnum.MBranch, CRM_Common.GetControler(this.ViewContext)))
+                        {
+                            <button type="button" class="DeleteStudent btn btn-icon btn-primary" id="@CRM_Common.Encrypt(item.BranchID.ToString())" title="Delete" actionfor="Delete"><i class="fa fa-trash" aria-hidden="true"></i></button>
+
+                            @*<button class="DeleteStudent btn btn-raised btn-info btn-sm" _id="@CRM_Common.Encrypt(item.StudentID.ToString())" title="Delete" actionfor="Delete"><i class="fa fa-trash"></i></button>*@
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+
+    </table>
+
+</div>

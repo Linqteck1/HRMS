@@ -143,6 +143,11 @@
     </Key>
     <Property Name="BranchID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Name" Type="varchar" MaxLength="50" />
+    <Property Name="IsActive" Type="bit" />
+    <Property Name="CreatedBy" Type="int" />
+    <Property Name="CreateDate" Type="datetime" />
+    <Property Name="UpdateBy" Type="int" />
+    <Property Name="UpdateDate" Type="datetime" />
   </EntityType>
   <EntityType Name="Department">
     <Key>

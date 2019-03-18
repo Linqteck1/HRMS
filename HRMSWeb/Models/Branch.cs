@@ -16,5 +16,10 @@ namespace HRMSWeb.Models
     {
         public int BranchID { get; set; }
         public string Name { get; set; }
+        public Nullable<bool> IsActive { get; set; }
+        public Nullable<int> CreatedBy { get; set; }
+        public Nullable<System.DateTime> CreateDate { get; set; }
+        public Nullable<int> UpdateBy { get; set; }
+        public Nullable<System.DateTime> UpdateDate { get; set; }
     }
 }

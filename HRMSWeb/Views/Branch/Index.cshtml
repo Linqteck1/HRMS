@@ -1,0 +1,116 @@
+﻿@model IEnumerable<HRMSWeb.Models.Branch>
+@{ HRMSWeb.Models.Session_CRM sess = (HRMSWeb.Models.Session_CRM)HttpContext.Current.Session["Session_CRM"]; }
+
+
+<div class="page-content">
+
+
+    <!-- Panel Basic -->
+    <div class="panel">
+
+
+        <header class="panel-heading">
+
+            <div class="panel-actions"></div>
+            <h3 class="panel-title">Basic</h3>
+            <div class="col-md-12 text-right">
+                @if (CRM_Common.CheckPermissions(PermissionEnum.MBranch, CRM_Common.GetControler(this.ViewContext)))
+                {
+
+
+                    <button type="button" id="0" class="btnAddUpdateBranch  btn btn-block btn-primary">Add Branch</button>
+
+                        @*<a class="AddUpdatePage pull-right btn btn-block btn-primary"  id="0"><i class="fa fa-plus mr-10"></i>Add Page</a>*@
+                }
+            </div>
+        </header>
+        <div class="panel-body" id="DivBranchList">
+            @{Html.RenderPartial("_Index");}
+        </div>
+    </div>
+    <div class="modal fade modal-primary" id="BranchModal" aria-hidden="true" aria-labelledby="myModalLabel"
+         role="dialog" tabindex="-1"></div>
+    @*<div class="modal fade" id="PageModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-keyboard="false" data-backdrop="static"></div>*@
+</div>
+<script>
+    $(document).ready(function () {
+        $('body').on("click", ".DeleteStudent", function () {
+            $("#btnDeleteConfirmation").attr('deleteid', $(this).attr('_id'))
+            $("#DeleteConfirmation").modal('show')
+        });
+        $.onbody("click", "#btnDeleteConfirmation", function () {
+            debugger
+            var id = $(this).attr('deleteid')
+            $.get("@Url.Action("_Delete", "Student")", { id: id }, function (data) {
+                if (data == "Error") {
+                    showStatusMsgPopup("3", "An Error Occured While Processing.")
+                }
+                else if (data == "Exist") {
+                    showStatusMsgPopup("3", "Cannot Delete Student Due to Already Assign to Lead.")
+                }
+                else {
+                    $("#DeleteConfirmation").modal('hide')
+                    $("#DivStudentList").html(data)
+                    showStatusMsgPopup("1", "Student Deleted Successfully.")
+                }
+            });
+        });
+        $.onbody("click", ".btnAddUpdateBranch", function () {
+            debugger
+            var id = $(this).attr('_id');
+            var title = this.title;
+            $.get('@Url.Action("_New", "Branch")', { id: id }, function (data) {
+                $('#BranchModal').html(data);
+            }).done(function () {
+                if (title == "View") {
+                    $('#btnSave').hide();
+                    disable_Controls("AddUpdateLeadPopUp");
+                }
+                else if (title == "Edit") {
+                    //$(".ClSecc").attr("disabled", "disabled");
+                    $(".ClSecc").hide();
+                }
+                $("#BranchModal").modal('show')
+            });
+        });
+
+    });
+    $.onbody("click", "#btnSave", function () {
+        debugger
+     
+        if ($("#frmBranch").valid()) {
+         
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Content("~/Branch/_New")',
+                datatype: "JSON",
+                data: $("#frmBranch").serialize(),
+              
+                
+                success: function (data) {
+                    alert(data);
+                    $('#DivBranchList').html(data);
+                     $('#tblbranch').dataTable();
+                    var msg = $('#lblmsg').val()
+                    if (msg == "Student Saved Successfully.") {
+                        showStatusMsgPopup("1", msg)
+                    }
+                    else
+                    {
+                        showStatusMsgPopup("3","Error Saving Student!")
+                    }
+
+                }, error: function (request, status, error) {
+
+                    var val = request.responseText;
+                    alert("error" + val);
+                }
+               
+            });
+            $('#BranchModal').modal('hide');
+        }
+        else {
+            return false;
+        }
+    });
+</script>

@@ -476,10 +476,10 @@ namespace InstituteMS.Controllers
                     usr.PicName = usr.upload.FileName;
                     Guid g;
                     g = Guid.NewGuid();
-                    string targetFolder = Server.MapPath("~/UserProfile/Images");
+                    string targetFolder = Server.MapPath("~/App_Data/Images");
                     string targetPath = Path.Combine(targetFolder, g.ToString() + Path.GetExtension(usr.upload.FileName));
                     usr.upload.SaveAs(targetPath);
-                    usr.PicName = "/UserProfile/Images/" + g.ToString() + Path.GetExtension(usr.upload.FileName);
+                    usr.PicName = "/App_Data/Images/" + g.ToString() + Path.GetExtension(usr.upload.FileName);
                     usr.PicGuid = g.ToString();
                     db.AT_Users.Attach(usr);
                     db.UpdateOnly<AT_Users>(usr, x => x.FirstName, x => x.LastName,
